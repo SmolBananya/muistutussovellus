@@ -1,0 +1,2 @@
+# muistutussovellus
+Scrum projekti asiakkaalle
