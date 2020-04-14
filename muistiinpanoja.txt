@@ -1,0 +1,3 @@
+2-3 väri maailma vaihtoehtoa
+seuraa tavoitteiden suoritusta nappulalla
+toiminnallisuudet ok testivaiheeseen
