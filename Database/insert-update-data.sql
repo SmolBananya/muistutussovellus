@@ -1,27 +1,31 @@
 INSERT Hahmot(nimi, animaatio1, animaatio2, animaatio3) 
 VALUES ('Noora','Animaatio1 polku','Animaatio2 polku','Animaatio3 polku')
 --UPDATE Hahmot SET nimi = 'Nelli' WHERE hahmo_id = 10
+--DELETE FROM Hahmot WHERE hahmo_id = 11
 SELECT * FROM Hahmot ORDER BY hahmo_id asc
 
 GO
 
-INSERT Käyttäjät(etunimi, sukunimi, salasana, sähkposti, rekisteröintikoodi) 
-VALUES ('Dan','Andersson','Salasana123','dan.a@yritys.fi', 12345)
+INSERT Käyttäjät(hahmo_id, etunimi, sukunimi, salasana, sähkposti, rekisteröintikoodi) 
+VALUES (10,'Vilma','Jalonen','Salasana123','vj@yritys.fi', 12345)
 --UPDATE Käyttäjät SET etunimi = 'Hanna' WHERE käyttäjä_id = 5
+--DELETE FROM Käyttäjät WHERE käyttäjä_id = 10
 SELECT * FROM Käyttäjät ORDER BY käyttäjä_id asc
 
 GO
 
 INSERT Tehtävät(nimi, pistemäärä, tavoitemäärä, päivämäärä) 
-VALUES ('Soita puheluita',10,15,GETDATE())
+VALUES ('Tervehdi tiimiä',4,4,GETDATE())
 --UPDATE Tehtävät SET nimi = 'Tee sopimuksia' WHERE tehtävä_id = 10
+--DELETE FROM Tehtävät WHERE tehtävä_id = 14
 SELECT * FROM Tehtävät ORDER BY tehtävä_id asc
 
 GO
 
 INSERT ValitutTehtävät(käyttäjä_id, tehtävä_id, pisteet, viimeinenmuokkaus) 
-VALUES (5,10,10,GETDATE())
+VALUES (9,12,4,GETDATE())
 --UPDATE Käyttäjät SET etunimi = 'Hanna' WHERE käyttäjä_id = 5
+--DELETE FROM ValitutTehtävät WHERE valitutteht_id = 13
 SELECT * FROM ValitutTehtävät ORDER BY valitutteht_id asc
 
 GO
