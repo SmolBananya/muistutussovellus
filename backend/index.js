@@ -16,10 +16,10 @@ app.use(cors());
 app.listen(8080);
 
 const config = {
-    user: 'admin',
-    password: 'pointfight',
-    server: 'database-1.cumxecap9lly.eu-west-1.rds.amazonaws.com',
-    database: 'pointfight',
+    user: process.env.user,
+    password: process.env.password,
+    server: process.env.server,
+    database: process.env.database,
 };
 
 app.post('/api/companyregister', async function (req, res) {
