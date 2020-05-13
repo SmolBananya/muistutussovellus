@@ -71,6 +71,9 @@ const CompanyRegister = (props) => {
                                                 auth: true,
                                                 admin: true,
                                                 JWTtoken: res.data.token,
+
+                                                company: res.data.company,
+
                                             });
                                         }, 5000);
                                     }
