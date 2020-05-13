@@ -5,12 +5,12 @@ import Lottie from 'lottie-react-web';
 import styled from 'styled-components';
 
 // Animation data
-import animation from '../../animData/data.json';
-import animation2 from '../../animData/1.json';
-import trophy from '../../animData/trophy.json';
+import animation from '../animData/data.json';
+import animation2 from '../animData/1.json';
+import trophy from '../animData/trophy.json';
 
 const Leaderboard = styled.div`
-    background: url(${require('./../../SVG/leaderboard.svg')});
+    background: url(${require('./../SVG/leaderboard.svg')});
     width: 100px;
     height: 100px;
     position: absolute;
@@ -19,7 +19,7 @@ const Leaderboard = styled.div`
     z-index: 2;
 `;
 
-const Game = props => {
+const Game = (props) => {
     const teksti = 'testi';
     animation.layers[0].t.d.k[0].s.t = teksti;
     console.log(animation.layers[0].t.d.k[0].s.t);
