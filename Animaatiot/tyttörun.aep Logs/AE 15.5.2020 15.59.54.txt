@@ -1,0 +1,8 @@
+  15.5.2020 15.59.54: Starting composition “tempConverterComp”.
+
+  Output To: C:\Users\Toni\AppData\Local\Temp\Bodymovin\51xuzk5qsx\raw\images\img_6.png    15.5.2020 15.59.54: Finished composition “tempConverterComp”.
+
+
+  Total Time Elapsed: 0 Seconds
+Log closed on 15.5.2020 at 15.59.54
+

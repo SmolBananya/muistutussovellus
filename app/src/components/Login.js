@@ -1,16 +1,12 @@
 import React, { useState } from 'react';
-import { Link, Redirect, useHistory } from 'react-router-dom';
-
-// components
-import { login } from './API';
-
-// reuse
-import Textbox from '../reuse/Textbox';
-import Logo from '../reuse/Logo';
-import Button from '../reuse/Button';
-
+import { Link, useHistory } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
-import Main from '../reuse/Main';
+
+import API from '../Actions/API';
+import Textbox from '../Components/reuse/Textbox';
+import Logo from '../Components/reuse/Logo';
+import Button from '../Components/reuse/Button';
+import Main from '../Components/reuse/Main';
 
 const Login = (props) => {
     let history = useHistory();
@@ -24,11 +20,12 @@ const Login = (props) => {
                 <Grid item xs={11}>
                     <Grid container direction='row' justify='center' alignItems='center'>
                         <Grid item xs={10}>
-                            <Logo src={require('./../img/PointFightLogo.png')} />
+                            <Logo src={require('../Images/PointFightLogo.png')} />
                         </Grid>
                     </Grid>
                     <Grid item xs={12}>
                         <Textbox
+                            autoFocus
                             type='text'
                             placeholder='Käyttäjätunnus'
                             onChange={(e) => setData({ ...data, email: e.target.value })}
@@ -51,7 +48,7 @@ const Login = (props) => {
                             <Button
                                 color={1}
                                 onClick={async () => {
-                                    const res = await login(data);
+                                    const res = await API.login(data);
                                     console.log(res.data);
 
                                     if (res.data.auth && res.data.token) {

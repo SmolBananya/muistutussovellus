@@ -1,16 +1,13 @@
 import React from 'react';
-
-// NPM libraries
 import Lottie from 'lottie-react-web';
 import styled from 'styled-components';
 
-// Animation data
-import animation from '../animData/data.json';
-import animation2 from '../animData/1.json';
-import trophy from '../animData/trophy.json';
+import animation from '../../Animations/data.json';
+import animation2 from '../../Animations/1.json';
+import trophy from '../../Animations/trophy.json';
 
 const Leaderboard = styled.div`
-    background: url(${require('./../SVG/leaderboard.svg')});
+    background: url(${require('../../Images/SVG/leaderboard.svg')});
     width: 100px;
     height: 100px;
     position: absolute;

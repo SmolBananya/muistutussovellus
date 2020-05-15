@@ -1,13 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-
-// Components
-import Text from '../reuse/Text';
-
-// Material-UI components
 import Grid from '@material-ui/core/Grid';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+
+import Text from '../Components/reuse/Text';
 
 const ArrowBack = styled(ArrowBackIosIcon)`
     && {
@@ -24,19 +21,18 @@ const Toolbarbg = styled(Grid)`
     background-color: ${(props) => props.theme.colors.bg};
 `;
 
-const ToolbarText = styled(Grid)`
-    font-family: 'Roboto', Helvetica, Arial, sans-serif;
-    font-size: calc(12px + 2vmin);
-    font-weight: 500;
-    color: ${(props) => props.theme.colors.main};
-`;
-
 const Toolbar = (props) => {
     return (
         <Toolbarbg container direction='row' justify='flex-start' alignItems='center'>
-            <Link to={('/', props.backarrowaction)}>
-                <ArrowBack />
-            </Link>
+            {props.setShowCharacterSelection ? (
+                <Link onClick={() => props.setShowCharacterSelection(false)}>
+                    <ArrowBack />
+                </Link>
+            ) : (
+                <Link to={('/', props.backarrowaction)}>
+                    <ArrowBack />
+                </Link>
+            )}
             <Text style={{ textAlign: 'center' }} item xs='auto' maincolor size={14} weight={500}>
                 {props.value}
             </Text>

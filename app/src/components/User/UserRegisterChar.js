@@ -1,23 +1,15 @@
 import React from 'react';
-
-// NPM libraries
 import Lottie from 'lottie-react-web';
 import styled from 'styled-components';
-
-// Material-UI components
 import Grid from '@material-ui/core/Grid';
-
-// Components
-import Toolbar from './Toolbar';
-import animation from '../animData/data.json';
-
-// Reuse
-import Main from '../reuse/Main';
-import Textbox from '../reuse/Textbox';
-import Button from '../reuse/Button';
-import Text from '../reuse/Text';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+
+import animation from '../../Animations/data.json';
+import Main from '../reuse/Main';
+import Button from '../reuse/Button';
+import API from '../../Actions/API';
+import { useHistory } from 'react-router-dom';
 
 const ArrowLeft = styled(ArrowBackIcon)`
     && {
@@ -32,10 +24,10 @@ const ArrowRight = styled(ArrowForwardIcon)`
     }
 `;
 
-const Login = () => {
+const UserRegisterChar = (props) => {
+    let history = useHistory();
     return (
         <>
-            <Toolbar value='Valitse pelihahmo' />
             <Main container direction='row' justify='center' alignItems='center'>
                 <Grid item xs={11}>
                     <Grid container direction='row' justify='center' alignItems='center'>
@@ -58,7 +50,25 @@ const Login = () => {
                     </Grid>
 
                     <Grid item xs={12}>
-                        <Button color={1}>Viimeistele rekisteröinti</Button>
+                        <Button
+                            color={1}
+                            onClick={async () => {
+                                const res = await API.userregister(props.data);
+                                //console.log(res);
+                                if (res.data.auth && res.data.token) {
+                                    props.setUser({
+                                        ...props.user,
+                                        id: res.data.id,
+                                        auth: res.data.auth,
+                                        admin: res.data.admin,
+                                        JWTtoken: res.data.token,
+                                    });
+                                    history.push('/game');
+                                }
+                            }}
+                        >
+                            Viimeistele rekisteröinti
+                        </Button>
                     </Grid>
                 </Grid>
             </Main>
@@ -66,4 +76,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default UserRegisterChar;

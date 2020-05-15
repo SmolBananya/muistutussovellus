@@ -27,21 +27,20 @@ app.post('/api/companyregister', async function (req, res) {
         const randomnumber = Math.floor(Math.random() * (99999 - 11111) + 11111);
         const con = await sql.connect(config);
         const request = new sql.Request(con);
+        request.input('company', sql.NVarChar, req.body.company);
+        request.input('email', sql.NVarChar, req.body.email);
+        request.input('password', sql.NVarChar, bcrypt.hashSync(req.body.password, 10));
         const result = await request.query(
-            `SELECT * FROM Käyttäjät WHERE rekisteröintikoodi = '${randomnumber}' OR yritys = '${req.body.company}' OR sähkposti = '${req.body.email}'`,
+            `SELECT * FROM Käyttäjät WHERE rekisteröintikoodi = '${randomnumber}' OR yritys = @company OR sähkposti = @email`,
         );
         if (result.rowsAffected == 0) {
             const result2 = await request.query(
-                `INSERT INTO Käyttäjät (hahmo_id, yritys, etunimi, sukunimi, salasana, sähkposti, rekisteröintikoodi, admin) VALUES (10,'${
-                    req.body.company
-                }', 'teppo', 'testaaja', '${bcrypt.hashSync(req.body.password, 10)}', '${
-                    req.body.email
-                }', ${randomnumber}, 1)`,
+                `INSERT INTO Käyttäjät (yritys, salasana, sähkposti, rekisteröintikoodi, admin) VALUES (@company, @password, @email, ${randomnumber}, 1)`,
             );
 
             if (result2.rowsAffected == 1) {
                 const result3 = await request.query(
-                    `SELECT * FROM Käyttäjät WHERE (rekisteröintikoodi) = '${randomnumber}'`,
+                    `SELECT käyttäjä_id, admin, yritys, rekisteröintikoodi FROM Käyttäjät WHERE rekisteröintikoodi = '${randomnumber}'`,
                 );
                 console.log(result3);
                 const token = jwt.sign({ id: result3.recordset[0].käyttäjä_id }, process.env.SECRET);
@@ -61,6 +60,58 @@ app.post('/api/companyregister', async function (req, res) {
             await sql.close(config);
         } else {
             res.json('Rekisteröintikoodi käytössä');
+        }
+    }
+});
+
+app.post('/api/userregister', async function (req, res) {
+    if (
+        req.body.firstname &&
+        req.body.lastname &&
+        req.body.email &&
+        req.body.password &&
+        req.body.registercode &&
+        req.body.character
+    ) {
+        const con = await sql.connect(config);
+        const request = new sql.Request(con);
+        request.input('firstname', sql.NVarChar, req.body.firstname);
+        request.input('lastname', sql.NVarChar, req.body.lastname);
+        request.input('email', sql.NVarChar, req.body.email);
+        request.input('password', sql.NVarChar, bcrypt.hashSync(req.body.password, 10));
+        request.input('registercode', sql.Int, req.body.registercode);
+        request.input('character', sql.NVarChar, req.body.character);
+        const result0 = await request.query(`SELECT * FROM Käyttäjät WHERE rekisteröintikoodi = @registercode`);
+        if (result0.rowsAffected >= 1) {
+            const result = await request.query(`SELECT * FROM Käyttäjät WHERE sähkposti = @email`);
+            if (result.rowsAffected == 0) {
+                const result2 = await request.query(
+                    `INSERT INTO Käyttäjät (hahmo_id, etunimi, sukunimi, salasana, sähkposti, rekisteröintikoodi, yritys, admin) VALUES (@character, @firstname, @lastname, @password, @email, @registercode, (select top 1 yritys from käyttäjät where rekisteröintikoodi = @registercode), 0)`,
+                );
+
+                if (result2.rowsAffected == 1) {
+                    const result3 = await request.query(
+                        `SELECT käyttäjä_id, admin FROM Käyttäjät WHERE rekisteröintikoodi = @registercode AND sähkposti = @email `,
+                    );
+                    console.log(result3);
+                    const token = jwt.sign({ id: result3.recordset[0].käyttäjä_id }, process.env.SECRET);
+                    res.status(200).send({
+                        id: result3.recordset[0].käyttäjä_id,
+                        auth: true,
+                        admin: result3.recordset[0].admin,
+                        token: token,
+                    });
+                } else {
+                    res.json('Rekisteröinti epäonnistui!');
+                }
+
+                res.json(result);
+                await sql.close(config);
+            } else {
+                res.json('Sähköposti on jo käytössä!');
+            }
+        } else {
+            res.json(`Rekisteröintikoodia: ${req.body.registercode} ei löydy!`);
         }
     }
 });

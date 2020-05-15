@@ -1,21 +1,17 @@
 import React, { useState } from 'react';
-
-// Components
-import Toolbar from './Toolbar';
-import { companyregister } from './API';
-import Loading from './Loading';
-
-// Material-UI components
 import Grid from '@material-ui/core/Grid';
+import { Redirect, useHistory } from 'react-router-dom';
 
-// Reuse
+import Toolbar from '../Toolbar';
+import API from '../../Actions/API';
+import Loading from '../../Misc/Loading';
 import Main from '../reuse/Main';
 import Textbox from '../reuse/Textbox';
 import Button from '../reuse/Button';
 import Text from '../reuse/Text';
-import { Redirect } from 'react-router-dom';
 
 const CompanyRegister = (props) => {
+    let history = useHistory();
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState({
         company: '',
@@ -32,6 +28,7 @@ const CompanyRegister = (props) => {
                 <Grid item xs={11}>
                     <Grid item xs={12}>
                         <Textbox
+                            autoFocus
                             type='text'
                             placeholder='Yrityksen nimi'
                             onChange={(e) => setData({ ...data, company: e.target.value })}
@@ -56,7 +53,7 @@ const CompanyRegister = (props) => {
                             <Button
                                 color={1}
                                 onClick={async () => {
-                                    const res = await companyregister(data);
+                                    const res = await API.companyregister(data);
 
                                     if (res.data.auth && res.data.token) {
                                         setRegisterCompleted({
@@ -65,17 +62,16 @@ const CompanyRegister = (props) => {
                                             code: res.data.code,
                                         });
 
-                                        setTimeout(() => {
-                                            props.setUser({
-                                                ...props.user,
-                                                auth: true,
-                                                admin: true,
-                                                JWTtoken: res.data.token,
-
-                                                company: res.data.company,
-
-                                            });
-                                        }, 5000);
+                                        //  setTimeout(() => {
+                                        props.setUser({
+                                            ...props.user,
+                                            auth: true,
+                                            admin: true,
+                                            JWTtoken: res.data.token,
+                                            company: res.data.company,
+                                        });
+                                        history.push('/companymain');
+                                        // }, 5000);
                                     }
                                 }}
                             >
