@@ -2,14 +2,12 @@ import React, { useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { Redirect } from 'react-router-dom';
 
-
 import Toolbar from '../Toolbar';
 import Main from '../reuse/Main';
 import Textbox from '../reuse/Textbox';
 import Button from '../reuse/Button';
 import Text from '../reuse/Text';
 import TextboxLargeNumber from '../reuse/TextboxLargeNumber';
-
 import UserRegisterChar from './UserRegisterChar';
 
 const UserRegister = (props) => {

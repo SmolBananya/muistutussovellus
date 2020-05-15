@@ -5,13 +5,11 @@ import Grid from '@material-ui/core/Grid';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
-
 import animation from '../../Animations/data.json';
 import Main from '../reuse/Main';
 import Button from '../reuse/Button';
 import API from '../../Actions/API';
 import { useHistory } from 'react-router-dom';
-
 
 const ArrowLeft = styled(ArrowBackIcon)`
     && {
@@ -25,7 +23,6 @@ const ArrowRight = styled(ArrowForwardIcon)`
         font-size: calc(2rem + 5vmin);
     }
 `;
-
 
 const UserRegisterChar = (props) => {
     let history = useHistory();
@@ -53,7 +50,6 @@ const UserRegisterChar = (props) => {
                     </Grid>
 
                     <Grid item xs={12}>
-
                         <Button
                             color={1}
                             onClick={async () => {

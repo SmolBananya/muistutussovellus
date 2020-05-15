@@ -9,7 +9,6 @@ const userregister = (data) => {
 };
 
 const login = (data) => {
-
     return axios.post(`${url}api/login`, data);
 };
 
@@ -24,5 +23,4 @@ export default {
     companyregister: companyregister,
     userregister: userregister,
     login: login,
-
 };
