@@ -11,7 +11,9 @@ import Button from '../reuse/Button';
 import Text from '../reuse/Text';
 
 const CompanyRegister = (props) => {
+
     let history = useHistory();
+
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState({
         company: '',

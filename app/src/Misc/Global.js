@@ -12,6 +12,7 @@ body {
   canvas {
     display: block;
   }
+
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -21,6 +22,5 @@ body {
   input[type=number] {
     -moz-appearance: textfield;
   }
-
 
 `;
