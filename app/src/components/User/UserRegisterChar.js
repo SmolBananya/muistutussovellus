@@ -5,10 +5,13 @@ import Grid from '@material-ui/core/Grid';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
-import Toolbar from '../Toolbar';
+
 import animation from '../../Animations/data.json';
 import Main from '../reuse/Main';
 import Button from '../reuse/Button';
+import API from '../../Actions/API';
+import { useHistory } from 'react-router-dom';
+
 
 const ArrowLeft = styled(ArrowBackIcon)`
     && {
@@ -23,10 +26,11 @@ const ArrowRight = styled(ArrowForwardIcon)`
     }
 `;
 
-const UserRegisterChar = () => {
+
+const UserRegisterChar = (props) => {
+    let history = useHistory();
     return (
         <>
-            <Toolbar value='Valitse pelihahmo' />
             <Main container direction='row' justify='center' alignItems='center'>
                 <Grid item xs={11}>
                     <Grid container direction='row' justify='center' alignItems='center'>
@@ -49,7 +53,26 @@ const UserRegisterChar = () => {
                     </Grid>
 
                     <Grid item xs={12}>
-                        <Button color={1}>Viimeistele rekisteröinti</Button>
+
+                        <Button
+                            color={1}
+                            onClick={async () => {
+                                const res = await API.userregister(props.data);
+                                //console.log(res);
+                                if (res.data.auth && res.data.token) {
+                                    props.setUser({
+                                        ...props.user,
+                                        id: res.data.id,
+                                        auth: res.data.auth,
+                                        admin: res.data.admin,
+                                        JWTtoken: res.data.token,
+                                    });
+                                    history.push('/game');
+                                }
+                            }}
+                        >
+                            Viimeistele rekisteröinti
+                        </Button>
                     </Grid>
                 </Grid>
             </Main>

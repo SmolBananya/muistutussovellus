@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 
-import { login } from '../Actions/API';
+
+import API from '../Actions/API';
 import Textbox from '../Components/reuse/Textbox';
 import Logo from '../Components/reuse/Logo';
 import Button from '../Components/reuse/Button';
@@ -25,6 +26,7 @@ const Login = (props) => {
                     </Grid>
                     <Grid item xs={12}>
                         <Textbox
+                            autoFocus
                             type='text'
                             placeholder='Käyttäjätunnus'
                             onChange={(e) => setData({ ...data, email: e.target.value })}
@@ -47,7 +49,7 @@ const Login = (props) => {
                             <Button
                                 color={1}
                                 onClick={async () => {
-                                    const res = await login(data);
+                                    const res = await API.login(data);
                                     console.log(res.data);
 
                                     if (res.data.auth && res.data.token) {
