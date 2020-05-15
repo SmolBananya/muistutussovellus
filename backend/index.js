@@ -27,21 +27,22 @@ app.post('/api/companyregister', async function (req, res) {
         const randomnumber = Math.floor(Math.random() * (99999 - 11111) + 11111);
         const con = await sql.connect(config);
         const request = new sql.Request(con);
+        request.input('company', sql.NVarChar, req.body.company);
+        request.input('email', sql.NVarChar, req.body.email);
         const result = await request.query(
-            `SELECT * FROM Käyttäjät WHERE rekisteröintikoodi = '${randomnumber}' OR yritys = '${req.body.company}' OR sähkposti = '${req.body.email}'`,
+            `SELECT * FROM Käyttäjät WHERE rekisteröintikoodi = '${randomnumber}' OR yritys = @company OR sähkposti = @email`,
         );
         if (result.rowsAffected == 0) {
             const result2 = await request.query(
-                `INSERT INTO Käyttäjät (hahmo_id, yritys, etunimi, sukunimi, salasana, sähkposti, rekisteröintikoodi, admin) VALUES (10,'${
-                    req.body.company
-                }', 'teppo', 'testaaja', '${bcrypt.hashSync(req.body.password, 10)}', '${
-                    req.body.email
-                }', ${randomnumber}, 1)`,
+                `INSERT INTO Käyttäjät (yritys, salasana, sähkposti, rekisteröintikoodi, admin) VALUES (@company, '${bcrypt.hashSync(
+                    req.body.password,
+                    10,
+                )}', @email, ${randomnumber}, 1)`,
             );
 
             if (result2.rowsAffected == 1) {
                 const result3 = await request.query(
-                    `SELECT * FROM Käyttäjät WHERE (rekisteröintikoodi) = '${randomnumber}'`,
+                    `SELECT käyttäjä_id, admin, yritys, rekisteröintikoodi FROM Käyttäjät WHERE rekisteröintikoodi = '${randomnumber}'`,
                 );
                 console.log(result3);
                 const token = jwt.sign({ id: result3.recordset[0].käyttäjä_id }, process.env.SECRET);
