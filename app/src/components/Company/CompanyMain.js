@@ -1,10 +1,7 @@
 import React from 'react';
-import { Link, Redirect } from 'react-router-dom';
-
-// Material-UI components
+import { Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 
-// Reuse
 import Main from '../reuse/Main';
 import Button from '../reuse/Button';
 import Text from '../reuse/Text';

@@ -1,19 +1,14 @@
 import React, { useState } from 'react';
-
-// Components
-import Toolbar from './Toolbar';
-import { companyregister } from './API';
-import Loading from './Loading';
-
-// Material-UI components
 import Grid from '@material-ui/core/Grid';
+import { Redirect } from 'react-router-dom';
 
-// Reuse
+import Toolbar from '../Toolbar';
+import { companyregister } from '../../Actions/API';
+import Loading from '../../Misc/Loading';
 import Main from '../reuse/Main';
 import Textbox from '../reuse/Textbox';
 import Button from '../reuse/Button';
 import Text from '../reuse/Text';
-import { Redirect } from 'react-router-dom';
 
 const CompanyRegister = (props) => {
     const [loading, setLoading] = useState(true);

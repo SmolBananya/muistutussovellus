@@ -1,13 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-
-// Components
-import Text from '../reuse/Text';
-
-// Material-UI components
 import Grid from '@material-ui/core/Grid';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+
+import Text from '../Components/reuse/Text';
 
 const ArrowBack = styled(ArrowBackIosIcon)`
     && {
@@ -22,13 +19,6 @@ const Toolbarbg = styled(Grid)`
     text-indent: 20px;
     color: #000000;
     background-color: ${(props) => props.theme.colors.bg};
-`;
-
-const ToolbarText = styled(Grid)`
-    font-family: 'Roboto', Helvetica, Arial, sans-serif;
-    font-size: calc(12px + 2vmin);
-    font-weight: 500;
-    color: ${(props) => props.theme.colors.main};
 `;
 
 const Toolbar = (props) => {

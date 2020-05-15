@@ -1,7 +1,7 @@
 import React from 'react';
 
 // Components
-import Toolbar from './Toolbar';
+import Toolbar from '../Toolbar';
 
 // Material-UI components
 import Grid from '@material-ui/core/Grid';

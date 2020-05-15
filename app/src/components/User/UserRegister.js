@@ -1,19 +1,14 @@
 import React from 'react';
-
-// Components
-import Toolbar from './Toolbar';
-
-// Material-UI components
 import Grid from '@material-ui/core/Grid';
 
-// Reuse
+import Toolbar from '../Toolbar';
 import Main from '../reuse/Main';
 import Textbox from '../reuse/Textbox';
 import Button from '../reuse/Button';
 import Text from '../reuse/Text';
 import TextboxLargeNumber from '../reuse/TextboxLargeNumber';
 
-const Login = () => {
+const UserRegister = () => {
     return (
         <>
             <Toolbar backarrowaction='login' value='Luo käyttäjätunnus' />
@@ -64,4 +59,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default UserRegister;

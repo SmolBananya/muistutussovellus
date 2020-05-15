@@ -1,23 +1,14 @@
 import React from 'react';
-
-// NPM libraries
 import Lottie from 'lottie-react-web';
 import styled from 'styled-components';
-
-// Material-UI components
 import Grid from '@material-ui/core/Grid';
-
-// Components
-import Toolbar from './Toolbar';
-import animation from '../animData/data.json';
-
-// Reuse
-import Main from '../reuse/Main';
-import Textbox from '../reuse/Textbox';
-import Button from '../reuse/Button';
-import Text from '../reuse/Text';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+
+import Toolbar from '../Toolbar';
+import animation from '../../Animations/data.json';
+import Main from '../reuse/Main';
+import Button from '../reuse/Button';
 
 const ArrowLeft = styled(ArrowBackIcon)`
     && {
@@ -32,7 +23,7 @@ const ArrowRight = styled(ArrowForwardIcon)`
     }
 `;
 
-const Login = () => {
+const UserRegisterChar = () => {
     return (
         <>
             <Toolbar value='Valitse pelihahmo' />
@@ -66,4 +57,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default UserRegisterChar;
