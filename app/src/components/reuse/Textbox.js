@@ -19,11 +19,11 @@ const Textbox = styled.input`
     color: #000000;
 
     &:hover {
-        box-shadow: #4daac9;
+        box-shadow: 0px 0px 1px 2px ${(props) => props.theme.colors.main};
     }
 
     &:focus {
-        box-shadow: #4daac9;
+        box-shadow: 0px 0px 1px 2px ${(props) => props.theme.colors.main};
     }
 
     &::placeholder {

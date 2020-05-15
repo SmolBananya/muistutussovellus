@@ -1,11 +1,14 @@
 import axios from 'axios';
 const url = `http://${window.location.hostname}:8080/`;
 
-export const companyregister = (data) => {
+const companyregister = (data) => {
     return axios.post(`${url}api/companyregister`, data);
 };
+const userregister = (data) => {
+    return axios.post(`${url}api/userregister`, data);
+};
 
-export const login = (data) => {
+const login = (data) => {
     return axios.post(`${url}api/login`, data);
 };
 
@@ -16,11 +19,8 @@ const deleteUser = (id) => {
     return axios.delete(`${url}/${id}`);
 };
 
-export const adminRegister = async (data) => {
-    try {
-        const res = await axios.post('http://localhost:8080/adminregister', data);
-        console.log(res);
-    } catch (error) {
-        console.log(error);
-    }
+export default {
+    companyregister: companyregister,
+    userregister: userregister,
+    login: login,
 };

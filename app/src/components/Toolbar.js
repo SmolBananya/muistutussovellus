@@ -24,9 +24,15 @@ const Toolbarbg = styled(Grid)`
 const Toolbar = (props) => {
     return (
         <Toolbarbg container direction='row' justify='flex-start' alignItems='center'>
-            <Link to={('/', props.backarrowaction)}>
-                <ArrowBack />
-            </Link>
+            {props.setShowCharacterSelection ? (
+                <Link onClick={() => props.setShowCharacterSelection(false)}>
+                    <ArrowBack />
+                </Link>
+            ) : (
+                <Link to={('/', props.backarrowaction)}>
+                    <ArrowBack />
+                </Link>
+            )}
             <Text style={{ textAlign: 'center' }} item xs='auto' maincolor size={14} weight={500}>
                 {props.value}
             </Text>
