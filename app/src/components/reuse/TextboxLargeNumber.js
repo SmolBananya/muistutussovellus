@@ -18,11 +18,11 @@ const Textbox = styled.input`
     text-align: center;
 
     &:hover {
-        box-shadow: #4daac9;
+        box-shadow: 0px 0px 1px 2px ${(props) => props.theme.colors.main};
     }
 
     &:focus {
-        box-shadow: #4daac9;
+        box-shadow: 0px 0px 1px 2px ${(props) => props.theme.colors.main};
     }
 
     &::placeholder {
