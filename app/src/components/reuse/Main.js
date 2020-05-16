@@ -8,6 +8,7 @@ const Main = styled(Grid)`
     background-color: ${(props) => props.theme.colors.bg};
     background-repeat: no-repeat;
     background-size: cover;
+    padding: 1em;
 `;
 
 export default Main;

@@ -5,7 +5,7 @@ import PrivateRoute from '../Routing/PrivateRoute';
 import Login from '../Login';
 import Game from '../User/Game';
 import CompanyRegister from '../Company/CompanyRegister';
-import CompanyTasks from '../Company/CompanyTasks';
+import CompanyTaskControl from '../Company/CompanyTaskControl';
 import CompanyMain from '../Company/CompanyMain';
 import UserRegister from '../User/UserRegister';
 import UserRegisterChar from '../User/UserRegisterChar';
@@ -22,8 +22,8 @@ const Routing = (props) => (
                 render={() => <CompanyRegister user={props.user} setUser={props.setUser} />}
             ></Route>
 
-            <PrivateRoute user={props.user} path='/companytasks'>
-                <CompanyTasks />
+            <PrivateRoute user={props.user} path='/companytaskcontrol'>
+                <CompanyTaskControl />
             </PrivateRoute>
 
             <PrivateRoute user={props.user} path='/companymain'>

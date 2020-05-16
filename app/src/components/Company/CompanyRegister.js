@@ -24,11 +24,10 @@ const CompanyRegister = (props) => {
             {props.user.admin && props.user.auth && <Redirect to='/companymain' />}
 
             <Toolbar backarrowaction='login' value='Luo yritystunnus' />
-            <Main container direction='row' justify='center' alignItems='center'>
-                <Grid item xs={11}>
+            <Main container direction='column' justify='space-around' alignItems='center'>
+                <Grid container direction='row' justify='center' alignItems='center'>
                     <Grid item xs={12}>
                         <Textbox
-                            autoFocus
                             type='text'
                             placeholder='Yrityksen nimi'
                             onChange={(e) => setData({ ...data, company: e.target.value })}

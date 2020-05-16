@@ -116,6 +116,24 @@ app.post('/api/userregister', async function (req, res) {
     }
 });
 
+app.get('/api/testi', async function (req, res) {
+    const token = req.get('authorization');
+    const tokencheck = JSON.stringify(jwt.verify(token, process.env.SECRET));
+    console.log('testi ', tokencheck);
+    if (!tokencheck) {
+        res.json({ error: 'väärä token' });
+    } else {
+        const con = await sql.connect(config);
+        const request = new sql.Request(con);
+        const result0 = await request.query(`SELECT * FROM Käyttäjät`);
+        if (result0.rowsAffected >= 1) {
+            res.json(result0);
+        } else {
+            res.json({ error: 'väärä token' });
+        }
+    }
+});
+
 app.post('/api/login', async function (req, res) {
     if (req.body.email && req.body.password) {
         const con = await sql.connect(config);
