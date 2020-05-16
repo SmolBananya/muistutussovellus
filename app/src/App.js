@@ -5,10 +5,10 @@ import Routing from './Components/Routing/Routing';
 
 const App = () => {
     const [user, setUser] = useState({
-        auth: false,
+        auth: true,
         admin: false,
-        company: '',
-        JWTtoken: '',
+        company: 'asd',
+        JWTtoken: 'asd',
     });
 
     return (

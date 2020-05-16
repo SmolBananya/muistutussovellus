@@ -35,11 +35,10 @@ const UserRegister = (props) => {
             {showCharacterSelection ? (
                 <UserRegisterChar data={data} setData={setData} user={props.user} setUser={props.setUser} />
             ) : (
-                <Main container direction='row' justify='center' alignItems='center'>
-                    <Grid item xs={11}>
+                <Main container direction='column' justify='space-around' alignItems='center'>
+                    <Grid container direction='row' justify='center' alignItems='center'>
                         <Grid item xs={12}>
                             <Textbox
-                                autoFocus
                                 type='text'
                                 placeholder='Etunimi'
                                 value={data.firstname}

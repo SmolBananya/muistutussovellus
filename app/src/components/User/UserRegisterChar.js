@@ -28,27 +28,24 @@ const UserRegisterChar = (props) => {
     let history = useHistory();
     return (
         <>
-            <Main container direction='row' justify='center' alignItems='center'>
-                <Grid item xs={11}>
-                    <Grid container direction='row' justify='center' alignItems='center'>
-                        <Grid item xs={2}>
-                            <ArrowLeft />
-                        </Grid>
-                        <Grid item xs={8}>
-                            <Lottie
-                                style={{
-                                    width: '100%',
-                                }}
-                                options={{
-                                    animationData: animation,
-                                }}
-                            />
-                        </Grid>
-                        <Grid item xs={2}>
-                            <ArrowRight />
-                        </Grid>
+            <Main container direction='column' justify='space-around' alignItems='center'>
+                <Grid container direction='row' justify='center' alignItems='center'>
+                    <Grid item xs={2}>
+                        <ArrowLeft />
                     </Grid>
-
+                    <Grid item xs={8}>
+                        <Lottie
+                            style={{
+                                width: '100%',
+                            }}
+                            options={{
+                                animationData: animation,
+                            }}
+                        />
+                    </Grid>
+                    <Grid item xs={2}>
+                        <ArrowRight />
+                    </Grid>
                     <Grid item xs={12}>
                         <Button
                             color={1}

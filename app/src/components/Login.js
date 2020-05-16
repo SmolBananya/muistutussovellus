@@ -16,16 +16,14 @@ const Login = (props) => {
     });
     return (
         <>
-            <Main bgcolor='#000e52' container direction='row' justify='center' alignItems='center'>
-                <Grid item xs={11}>
-                    <Grid container direction='row' justify='center' alignItems='center'>
-                        <Grid item xs={10}>
-                            <Logo src={require('../Images/PointFightLogo.png')} />
-                        </Grid>
+            <Main bgcolor='#000e52' container direction='column' justify='space-around' alignItems='center'>
+                <Grid container direction='row' justify='center' alignItems='center'>
+                    <Grid item xs={10}>
+                        <Logo src={require('../Images/PointFightLogo.png')} />
                     </Grid>
+
                     <Grid item xs={12}>
                         <Textbox
-                            autoFocus
                             type='text'
                             placeholder='Käyttäjätunnus'
                             onChange={(e) => setData({ ...data, email: e.target.value })}
