@@ -25,7 +25,7 @@ const CompanyRegister = (props) => {
 
             <Toolbar backarrowaction='login' value='Luo yritystunnus' />
             <Main container direction='column' justify='space-around' alignItems='center'>
-                <Grid container direction='row' justify='center' alignItems='center'>
+                <Grid container direction='row' justify='center' alignItems='center' spacing={1}>
                     <Grid item xs={12}>
                         <Textbox
                             type='text'
@@ -47,36 +47,35 @@ const CompanyRegister = (props) => {
                             onChange={(e) => setData({ ...data, password: e.target.value })}
                         />
                     </Grid>
-                    <Grid container direction='row' justify='center' alignItems='center' spacing={2}>
-                        <Grid item xs={12}>
-                            <Button
-                                color={1}
-                                onClick={async () => {
-                                    const res = await API.companyregister(data);
 
-                                    if (res.data.auth && res.data.token) {
-                                        setRegisterCompleted({
-                                            ...registerCompleted,
-                                            company: res.data.company,
-                                            code: res.data.code,
-                                        });
+                    <Grid item xs={12}>
+                        <Button
+                            color={1}
+                            onClick={async () => {
+                                const res = await API.companyregister(data);
 
-                                        //  setTimeout(() => {
-                                        props.setUser({
-                                            ...props.user,
-                                            auth: true,
-                                            admin: true,
-                                            JWTtoken: res.data.token,
-                                            company: res.data.company,
-                                        });
-                                        history.push('/companymain');
-                                        // }, 5000);
-                                    }
-                                }}
-                            >
-                                Tallenna
-                            </Button>
-                        </Grid>
+                                if (res.data.auth && res.data.token) {
+                                    setRegisterCompleted({
+                                        ...registerCompleted,
+                                        company: res.data.company,
+                                        code: res.data.code,
+                                    });
+
+                                    //  setTimeout(() => {
+                                    props.setUser({
+                                        ...props.user,
+                                        auth: true,
+                                        admin: true,
+                                        JWTtoken: res.data.token,
+                                        company: res.data.company,
+                                    });
+                                    history.push('/companymain');
+                                    // }, 5000);
+                                }
+                            }}
+                        >
+                            Tallenna
+                        </Button>
                     </Grid>
                     <Grid container direction='row' justify='center' alignItems='center'>
                         {registerCompleted.company && (

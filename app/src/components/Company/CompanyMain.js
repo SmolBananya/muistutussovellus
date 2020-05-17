@@ -9,7 +9,7 @@ import Text from '../reuse/Text';
 const CompanyMain = (props) => {
     return (
         <>
-            <Main container direction='column' justify='space-around' alignItems='center'>
+            <Main container direction='column' justify='space-between' alignItems='center'>
                 <Grid container direction='row' justify='center' alignItems='center'>
                     <Grid item xs={12}>
                         <Text align='center' size={46} weight={500} maincolor>
@@ -21,13 +21,21 @@ const CompanyMain = (props) => {
                     </Grid>
                 </Grid>
 
-                <Grid container direction='row' justify='center' alignItems='center'>
+                <Grid container direction='row' justify='center' alignItems='center' spacing={1}>
                     <Grid item xs={12}>
                         <Link to='/companytaskcontrol'>
                             <Button color={4}>Tehtävien hallinta</Button>
                         </Link>
-                        <Button color={4}>Raportointi</Button>
-                        <Button color={4}>Tulostaulukko</Button>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Link to='/companytaskcontrol'>
+                            <Button color={4}>Raportointi</Button>
+                        </Link>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Link to='/companytaskcontrol'>
+                            <Button color={4}>Tulostaulukko</Button>
+                        </Link>
                     </Grid>
                 </Grid>
                 <Grid container direction='row' justify='center' alignItems='center'>

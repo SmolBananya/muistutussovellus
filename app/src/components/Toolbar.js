@@ -21,7 +21,7 @@ const Toolbarbg = styled(Grid)`
     width: 100%;
     height: 60px;
     position: fixed;
-    z-index: 1;
+    z-index: 2;
     color: #000000;
     background-color: ${(props) => props.theme.colors.bg};
 `;
