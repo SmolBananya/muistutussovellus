@@ -36,7 +36,7 @@ const UserRegister = (props) => {
                 <UserRegisterChar data={data} setData={setData} user={props.user} setUser={props.setUser} />
             ) : (
                 <Main container direction='column' justify='space-around' alignItems='center'>
-                    <Grid container direction='row' justify='center' alignItems='center'>
+                    <Grid container direction='row' justify='center' alignItems='center' spacing={1}>
                         <Grid item xs={12}>
                             <Textbox
                                 type='text'
@@ -70,65 +70,63 @@ const UserRegister = (props) => {
                             />
                         </Grid>
 
-                        <Grid container direction='row' justify='center' alignItems='center' spacing={2}>
-                            <Grid item xs={12}>
-                                <Text size={12}>Rekisteröintikoodi</Text>
-                            </Grid>
-                            <Grid item xs={2}>
-                                <TextboxLargeNumber
-                                    type='text'
-                                    maxLength='1'
-                                    size={24}
-                                    weight={700}
-                                    maincolor
-                                    value={data.c1}
-                                    onChange={(e) => setData({ ...data, c1: e.target.value })}
-                                />
-                            </Grid>
-                            <Grid item xs={2}>
-                                <TextboxLargeNumber
-                                    type='text'
-                                    maxLength='1'
-                                    size={24}
-                                    weight={700}
-                                    maincolor
-                                    value={data.c2}
-                                    onChange={(e) => setData({ ...data, c2: e.target.value })}
-                                />
-                            </Grid>
-                            <Grid item xs={2}>
-                                <TextboxLargeNumber
-                                    type='text'
-                                    maxLength='1'
-                                    size={24}
-                                    weight={700}
-                                    maincolor
-                                    value={data.c3}
-                                    onChange={(e) => setData({ ...data, c3: e.target.value })}
-                                />
-                            </Grid>
-                            <Grid item xs={2}>
-                                <TextboxLargeNumber
-                                    type='text'
-                                    maxLength='1'
-                                    size={24}
-                                    weight={700}
-                                    maincolor
-                                    value={data.c4}
-                                    onChange={(e) => setData({ ...data, c4: e.target.value })}
-                                />
-                            </Grid>
-                            <Grid item xs={2}>
-                                <TextboxLargeNumber
-                                    type='text'
-                                    maxLength='1'
-                                    size={24}
-                                    weight={700}
-                                    maincolor
-                                    value={data.c5}
-                                    onChange={(e) => setData({ ...data, c5: e.target.value })}
-                                />
-                            </Grid>
+                        <Grid item xs={12}>
+                            <Text size={12}>Rekisteröintikoodi</Text>
+                        </Grid>
+                        <Grid item xs={2}>
+                            <TextboxLargeNumber
+                                type='text'
+                                maxLength='1'
+                                size={24}
+                                weight={700}
+                                maincolor
+                                value={data.c1}
+                                onChange={(e) => setData({ ...data, c1: e.target.value })}
+                            />
+                        </Grid>
+                        <Grid item xs={2}>
+                            <TextboxLargeNumber
+                                type='text'
+                                maxLength='1'
+                                size={24}
+                                weight={700}
+                                maincolor
+                                value={data.c2}
+                                onChange={(e) => setData({ ...data, c2: e.target.value })}
+                            />
+                        </Grid>
+                        <Grid item xs={2}>
+                            <TextboxLargeNumber
+                                type='text'
+                                maxLength='1'
+                                size={24}
+                                weight={700}
+                                maincolor
+                                value={data.c3}
+                                onChange={(e) => setData({ ...data, c3: e.target.value })}
+                            />
+                        </Grid>
+                        <Grid item xs={2}>
+                            <TextboxLargeNumber
+                                type='text'
+                                maxLength='1'
+                                size={24}
+                                weight={700}
+                                maincolor
+                                value={data.c4}
+                                onChange={(e) => setData({ ...data, c4: e.target.value })}
+                            />
+                        </Grid>
+                        <Grid item xs={2}>
+                            <TextboxLargeNumber
+                                type='text'
+                                maxLength='1'
+                                size={24}
+                                weight={700}
+                                maincolor
+                                value={data.c5}
+                                onChange={(e) => setData({ ...data, c5: e.target.value })}
+                            />
                         </Grid>
 
                         <Grid container direction='row' justify='center' alignItems='center' spacing={2}>

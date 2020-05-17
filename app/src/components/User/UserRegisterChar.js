@@ -28,7 +28,7 @@ const UserRegisterChar = (props) => {
     let history = useHistory();
     return (
         <>
-            <Main container direction='column' justify='space-around' alignItems='center'>
+            <Main container direction='column' justify='space-between' alignItems='center'>
                 <Grid container direction='row' justify='center' alignItems='center'>
                     <Grid item xs={2}>
                         <ArrowLeft />
@@ -36,7 +36,7 @@ const UserRegisterChar = (props) => {
                     <Grid item xs={8}>
                         <Lottie
                             style={{
-                                width: '100%',
+                                width: '90%',
                             }}
                             options={{
                                 animationData: animation,
@@ -46,6 +46,8 @@ const UserRegisterChar = (props) => {
                     <Grid item xs={2}>
                         <ArrowRight />
                     </Grid>
+                </Grid>
+                <Grid container direction='row' justify='center' alignItems='center'>
                     <Grid item xs={12}>
                         <Button
                             color={1}

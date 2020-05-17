@@ -8,6 +8,10 @@ const userregister = (data) => {
     return axios.post(`${url}api/userregister`, data);
 };
 
+const gettasks = async (data) => {
+    return await axios.post(`${url}api/gettasks`, data);
+};
+
 const login = (data) => {
     return axios.post(`${url}api/login`, data);
 };
@@ -22,5 +26,6 @@ const deleteUser = (id) => {
 export default {
     companyregister: companyregister,
     userregister: userregister,
+    gettasks: gettasks,
     login: login,
 };

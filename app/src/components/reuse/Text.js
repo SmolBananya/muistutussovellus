@@ -7,7 +7,7 @@ const Text = styled(Grid)`
     font-weight: ${(props) => (props.weight ? props.weight : '400')};
     text-align: ${(props) => props.align && props.align};
     color: ${(props) => (props.maincolor === true ? props.theme.colors.main : props.theme.colors.text)};
-    margin-top: 5vmin;
+    margin: 1vmin;
     margin-bottom: ${(props) => props.mbot && '5vmin'};
 `;
 
