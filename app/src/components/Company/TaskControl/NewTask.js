@@ -35,7 +35,10 @@ const CompanyNewTask = ({ tasks, setTasks, JWTtoken, currentDate, days }) => {
         if (res.status === 200) {
             if (!res.data.error) {
                 //  setLoading(false);
+
                 setTasks([...tasks, res.data]);
+
+                console.log(tasks);
 
                 setTask({
                     name: '',
@@ -46,6 +49,7 @@ const CompanyNewTask = ({ tasks, setTasks, JWTtoken, currentDate, days }) => {
                     copyDays: '',
                     forced: false,
                 });
+                setTasks([...tasks, res.data]);
             } else {
                 console.log(res.data.error);
                 //  setErrorText(res.data.error);
