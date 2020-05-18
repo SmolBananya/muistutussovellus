@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import API from '../../Actions/API';
+import API from '../../../Actions/API';
 
 import Grid from '@material-ui/core/Grid';
 import Table from '@material-ui/core/Table';
@@ -10,10 +10,10 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import LoadingAnimation from '../../Misc/Loading';
+import LoadingAnimation from '../../../Misc/Loading';
 
-import Text from '.././reuse/Text';
-import Button from '.././reuse/Button';
+import Text from '../../Shared/Text';
+import Button from '../../Shared/Button';
 
 import moment from 'moment';
 moment().format();
@@ -137,7 +137,7 @@ const CompanyTaskTable = (props) => {
                                                         {t.pakollinen && (
                                                             <img
                                                                 style={{ width: '1em', verticalAlign: 'text-bottom' }}
-                                                                src={require('../../Images/SVG/P_icon.svg')}
+                                                                src={require('../../../Images/SVG/P_icon.svg')}
                                                             />
                                                         )}
                                                     </TD>

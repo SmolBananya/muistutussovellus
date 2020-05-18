@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { Redirect, useHistory } from 'react-router-dom';
 
-import Toolbar from '../Toolbar';
-import API from '../../Actions/API';
-import Loading from '../../Misc/Loading';
-import Main from '../reuse/Main';
-import Textbox from '../reuse/Textbox';
-import Button from '../reuse/Button';
-import Text from '../reuse/Text';
+import Toolbar from '../../Toolbar';
+import API from '../../../Actions/API';
+import Main from '../../Shared/Main';
+import Textbox from '../../Shared/Textbox';
+import Button from '../../Shared/Button';
+import Text from '../../Shared/Text';
 
 const CompanyRegister = (props) => {
     let history = useHistory();
@@ -21,7 +20,7 @@ const CompanyRegister = (props) => {
     const [registerCompleted, setRegisterCompleted] = useState({});
     return (
         <>
-            {props.user.admin && props.user.auth && <Redirect to='/companymain' />}
+            {props.user.admin && props.user.auth && <Redirect to='/companymenu' />}
 
             <Toolbar backarrowaction='login' value='Luo yritystunnus' />
             <Main container direction='column' justify='space-around' alignItems='center'>
@@ -69,7 +68,7 @@ const CompanyRegister = (props) => {
                                         JWTtoken: res.data.token,
                                         company: res.data.company,
                                     });
-                                    history.push('/companymain');
+                                    history.push('/companymenu');
                                     // }, 5000);
                                 }
                             }}

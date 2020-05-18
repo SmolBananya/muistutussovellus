@@ -2,12 +2,12 @@ import React from 'react';
 import Lottie from 'lottie-react-web';
 import styled from 'styled-components';
 
-import animation from '../../Animations/data.json';
-import animation2 from '../../Animations/1.json';
-import trophy from '../../Animations/trophy.json';
+import animation from '../../../Animations/data.json';
+import animation2 from '../../../Animations/1.json';
+import trophy from '../../../Animations/trophy.json';
 
 const Leaderboard = styled.div`
-    background: url(${require('../../Images/SVG/leaderboard.svg')});
+    background: url(${require('../../../Images/SVG/leaderboard.svg')});
     width: 100px;
     height: 100px;
     position: absolute;

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 
-import Text from '../Components/reuse/Text';
+import Text from '../Components/Shared/Text';
 
 const ArrowBack = styled(ArrowBackIosIcon)`
     && {

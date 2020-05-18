@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { Redirect } from 'react-router-dom';
 
-import Toolbar from '../Toolbar';
-import Main from '../reuse/Main';
-import Textbox from '../reuse/Textbox';
-import Button from '../reuse/Button';
-import Text from '../reuse/Text';
-import TextboxLargeNumber from '../reuse/TextboxLargeNumber';
-import UserRegisterChar from './UserRegisterChar';
+import Toolbar from '../../Toolbar';
+import Main from '../../Shared/Main';
+import Textbox from '../../Shared/Textbox';
+import Button from '../../Shared/Button';
+import Text from '../../Shared/Text';
+import TextboxLargeNumber from '../../Shared/TextboxLargeNumber';
+import CharacterSelection from './CharacterSelection';
 
 const UserRegister = (props) => {
     const [showCharacterSelection, setShowCharacterSelection] = useState(false);
@@ -33,7 +33,7 @@ const UserRegister = (props) => {
                 <Toolbar backarrowaction='login' value='Luo käyttäjätunnus' />
             )}
             {showCharacterSelection ? (
-                <UserRegisterChar data={data} setData={setData} user={props.user} setUser={props.setUser} />
+                <CharacterSelection data={data} setData={setData} user={props.user} setUser={props.setUser} />
             ) : (
                 <Main container direction='column' justify='space-around' alignItems='center'>
                     <Grid container direction='row' justify='center' alignItems='center' spacing={1}>
