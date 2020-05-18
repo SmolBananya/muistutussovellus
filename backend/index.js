@@ -121,12 +121,12 @@ app.post('/api/gettasks', async function (req, res) {
     const request = new sql.Request(con);
     console.log(req.body);
     request.input('pvm', sql.Date, req.body.pvm);
-    const result = await request.query(`SELECT * FROM Tehtävät where päivämäärä = @pvm`);
+    const result = await request.query(`SELECT * FROM Tehtävät WHERE päivämäärä = @pvm`);
     //console.log(result.recordset);
     //res.status(200).send(result.recordset);
     if (result.rowsAffected >= 1) {
         res.status(200).json(result.recordset);
-        console.log(result.recordset);
+        //console.log(result.recordset);
     } else {
         res.status(200).json({ error: `Valitulta päivältä ei löytynyt tehtäviä` });
     }

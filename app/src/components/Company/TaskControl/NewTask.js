@@ -24,7 +24,7 @@ const CompanyNewTask = ({ tasks, setTasks, JWTtoken, currentDate, days }) => {
     });
     useEffect(() => {
         setTask({ ...task, date: currentDate.format('YYYY-MM-DD').toString() });
-    }, [days]);
+    }, [currentDate]);
 
     const addnewtask = async () => {
         // setLoading(true);
@@ -36,7 +36,19 @@ const CompanyNewTask = ({ tasks, setTasks, JWTtoken, currentDate, days }) => {
             if (!res.data.error) {
                 console.log(res.data);
                 //  setLoading(false);
+                console.log(tasks);
                 setTasks([...tasks, res.data]);
+                console.log(tasks);
+
+                setTask({
+                    name: '',
+                    points: '',
+                    target: '',
+                    date: '',
+                    copystate: false,
+                    copyDays: '',
+                    forced: false,
+                });
             } else {
                 console.log(res.data.error);
                 //  setErrorText(res.data.error);
@@ -52,6 +64,7 @@ const CompanyNewTask = ({ tasks, setTasks, JWTtoken, currentDate, days }) => {
             <Grid item xs={12}>
                 <Textbox
                     type='text'
+                    value={task.name}
                     placeholder='Tehtävä'
                     onChange={(e) => setTask({ ...task, name: e.target.value })}
                 />
@@ -59,6 +72,7 @@ const CompanyNewTask = ({ tasks, setTasks, JWTtoken, currentDate, days }) => {
             <Grid item xs={6}>
                 <Textbox
                     type='text'
+                    value={task.points}
                     placeholder='Pisteet'
                     onChange={(e) => setTask({ ...task, points: e.target.value })}
                 />
@@ -66,6 +80,7 @@ const CompanyNewTask = ({ tasks, setTasks, JWTtoken, currentDate, days }) => {
             <Grid item xs={6}>
                 <Textbox
                     type='text'
+                    value={task.target}
                     placeholder='Tavoite'
                     onChange={(e) => setTask({ ...task, target: e.target.value })}
                 />

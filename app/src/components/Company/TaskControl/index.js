@@ -6,21 +6,13 @@ import Main from '../../Shared/Main';
 import NewTask from './NewTask';
 import TaskTable from './TaskTable';
 import moment from 'moment';
-moment().format();
-moment.locale('fi');
 
 const CompanyTaskControl = (props) => {
     let date = moment(new Date());
-    const [currentDate, setCurrentDate] = useState(date);
+    const [currentDate, setCurrentDate] = useState(moment(date).add(1, 'days'));
     const [tasks, setTasks] = useState([]);
     const [days, setDays] = useState(0);
 
-    useEffect(() => {
-        setCurrentDate(moment(new Date()).add(days, 'days'));
-    }, [days]);
-
-    //let pvm = moment(new Date()).add(days, 'days');
-    //pvm = pvm.format('YYYY-MM-DD').toString();
     return (
         <>
             <Toolbar backarrowaction='companymenu' value='Tehtävien hallinta' />
