@@ -35,6 +35,20 @@ const CompanyNewTask = ({ tasks, setTasks, JWTtoken, currentDate, days }) => {
         if (res.status === 200) {
             if (!res.data.error) {
                 //  setLoading(false);
+
+                setTasks([...tasks, res.data]);
+
+                console.log(tasks);
+
+                setTask({
+                    name: '',
+                    points: '',
+                    target: '',
+                    date: '',
+                    copystate: false,
+                    copyDays: '',
+                    forced: false,
+                });
                 setTasks([...tasks, res.data]);
 
                 setTask({

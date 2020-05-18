@@ -87,6 +87,7 @@ const CompanyTaskTable = ({ tasks, setTasks, currentDate, setCurrentDate }) => {
     };
     useEffect(() => {
         gettasks();
+        //setCurrentDate(moment(new Date()).add(days, 'days'));
     }, []);
 
     return (

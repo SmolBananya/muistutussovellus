@@ -12,6 +12,9 @@ const CompanyTaskControl = (props) => {
     const [tasks, setTasks] = useState([]);
     const [days, setDays] = useState(0);
 
+    useEffect(() => {
+        setCurrentDate(moment(new Date()).add(days, 'days'));
+    }, [days]);
     return (
         <>
             <Toolbar backarrowaction='companymenu' value='Tehtävien hallinta' />
