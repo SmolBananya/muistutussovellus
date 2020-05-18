@@ -5,10 +5,10 @@ import Grid from '@material-ui/core/Grid';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
-import animation from '../../Animations/data.json';
-import Main from '../reuse/Main';
-import Button from '../reuse/Button';
-import API from '../../Actions/API';
+import animation from '../../../Animations/data.json';
+import Main from '../../Shared/Main';
+import Button from '../../Shared/Button';
+import API from '../../../Actions/API';
 import { useHistory } from 'react-router-dom';
 
 const ArrowLeft = styled(ArrowBackIcon)`

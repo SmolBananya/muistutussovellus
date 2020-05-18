@@ -2,9 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 
-import Main from '../reuse/Main';
-import Button from '../reuse/Button';
-import Text from '../reuse/Text';
+import Main from '../../Shared/Main';
+import Button from '../../Shared/Button';
+import Text from '../../Shared/Text';
 
 const CompanyMain = (props) => {
     return (

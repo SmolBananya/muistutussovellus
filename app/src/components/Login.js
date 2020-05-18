@@ -3,10 +3,10 @@ import { Link, useHistory } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 
 import API from '../Actions/API';
-import Textbox from '../Components/reuse/Textbox';
-import Logo from '../Components/reuse/Logo';
-import Button from '../Components/reuse/Button';
-import Main from '../Components/reuse/Main';
+import Textbox from '../Components/Shared/Textbox';
+import Logo from '../Components/Shared/Logo';
+import Button from '../Components/Shared/Button';
+import Main from '../Components/Shared/Main';
 
 const Login = (props) => {
     let history = useHistory();
@@ -57,7 +57,7 @@ const Login = (props) => {
                                         admin: res.data.admin,
                                         company: res.data.company,
                                     });
-                                    res.data.admin ? history.push('/companymain') : history.push('/game');
+                                    res.data.admin ? history.push('/companymenu') : history.push('/game');
                                 }
                             }}
                         >
