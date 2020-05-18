@@ -24,11 +24,7 @@ const CompanyNewTask = ({ tasks, setTasks, JWTtoken, currentDate, days }) => {
     });
     useEffect(() => {
         setTask({ ...task, date: currentDate.format('YYYY-MM-DD').toString() });
-<<<<<<< HEAD
     }, [currentDate]);
-=======
-    }, [days]);
->>>>>>> master
 
     const addnewtask = async () => {
         // setLoading(true);
@@ -38,11 +34,10 @@ const CompanyNewTask = ({ tasks, setTasks, JWTtoken, currentDate, days }) => {
 
         if (res.status === 200) {
             if (!res.data.error) {
-                console.log(res.data);
                 //  setLoading(false);
-<<<<<<< HEAD
-                console.log(tasks);
+
                 setTasks([...tasks, res.data]);
+
                 console.log(tasks);
 
                 setTask({
@@ -54,9 +49,7 @@ const CompanyNewTask = ({ tasks, setTasks, JWTtoken, currentDate, days }) => {
                     copyDays: '',
                     forced: false,
                 });
-=======
                 setTasks([...tasks, res.data]);
->>>>>>> master
             } else {
                 console.log(res.data.error);
                 //  setErrorText(res.data.error);
