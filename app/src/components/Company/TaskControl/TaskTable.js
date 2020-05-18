@@ -59,7 +59,6 @@ const CompanyTaskTable = ({ tasks, setTasks, currentDate, setCurrentDate }) => {
     const [errorText, setErrorText] = useState('');
 
     const gettasks = async (val) => {
-
         val === 1
             ? setCurrentDate(moment(currentDate).add(1, 'days'))
             : setCurrentDate(moment(currentDate).subtract(1, 'days'));
@@ -89,7 +88,6 @@ const CompanyTaskTable = ({ tasks, setTasks, currentDate, setCurrentDate }) => {
     useEffect(() => {
         gettasks();
         //setCurrentDate(moment(new Date()).add(days, 'days'));
-        console.log('days ', days);
     }, []);
 
     return (
