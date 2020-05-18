@@ -23,7 +23,7 @@ const CompanyRegister = (props) => {
             {props.user.admin && props.user.auth && <Redirect to='/companymenu' />}
 
             <Toolbar backarrowaction='login' value='Luo yritystunnus' />
-            <Main container direction='column' justify='space-around' alignItems='center'>
+            <Main container direction='column' justify='center' alignItems='center'>
                 <Grid container direction='row' justify='center' alignItems='center' spacing={1}>
                     <Grid item xs={12}>
                         <Textbox

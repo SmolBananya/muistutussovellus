@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
+import API from '../../../Actions/API';
 
 import Textbox from '../../Shared/Textbox';
 import TextboxMini from '../../Shared/TextboxMini';
@@ -7,14 +8,44 @@ import Text from '../../Shared/Text';
 import Button from '../../Shared/Button';
 import Checkbox from '../../Shared/Checkbox';
 
-const CompanyNewTask = () => {
+import moment from 'moment';
+moment().format();
+moment.locale('fi');
+
+const CompanyNewTask = ({ tasks, setTasks, JWTtoken, currentDate, days }) => {
     const [task, setTask] = useState({
         name: '',
         points: '',
         target: '',
+        date: '',
+        copystate: false,
         copyDays: '',
         forced: false,
     });
+    useEffect(() => {
+        setTask({ ...task, date: currentDate.format('YYYY-MM-DD').toString() });
+    }, [days]);
+
+    const addnewtask = async () => {
+        // setLoading(true);
+        //let pvm = moment(new Date()).add(days, 'days');
+        //pvm = pvm.format('YYYY-MM-DD').toString();
+        const res = await API.addtask(task, JWTtoken);
+
+        if (res.status === 200) {
+            if (!res.data.error) {
+                console.log(res.data);
+                //  setLoading(false);
+                setTasks([...tasks, res.data]);
+            } else {
+                console.log(res.data.error);
+                //  setErrorText(res.data.error);
+                // setTasks([]);
+                //setLoading(false);
+            }
+            // setLoading(false);
+        }
+    };
 
     return (
         <>
@@ -42,7 +73,10 @@ const CompanyNewTask = () => {
             <Grid item xs={12}>
                 <Grid container direction='row' justify='flex-start' alignItems='center' spacing={1}>
                     <Grid item xs='auto'>
-                        <Checkbox />
+                        <Checkbox
+                            checked={task.copystate}
+                            onChange={(e) => setTask({ ...task, copystate: e.target.checked })}
+                        />
                     </Grid>
                     <Grid item xs='auto'>
                         <Text size={10}>Kopio tehtävä seuraavalle </Text>
@@ -60,7 +94,10 @@ const CompanyNewTask = () => {
                 </Grid>
                 <Grid container direction='row' justify='flex-start' alignItems='center' spacing={1}>
                     <Grid item xs='auto'>
-                        <Checkbox onChange={(e) => setTask({ ...task, forced: e.target.checked })} />
+                        <Checkbox
+                            checked={task.forced}
+                            onChange={(e) => setTask({ ...task, forced: e.target.checked })}
+                        />
                     </Grid>
                     <Grid item xs='auto'>
                         <Text size={10}>Määrittele tehtävä pakolliseksi </Text>
@@ -70,9 +107,10 @@ const CompanyNewTask = () => {
                     </Grid>
                 </Grid>
             </Grid>
-            {console.log(task)}
             <Grid item xs={12}>
-                <Button color={1}>Tallenna</Button>
+                <Button color={1} onClick={() => addnewtask()}>
+                    Tallenna
+                </Button>
             </Grid>
         </>
     );

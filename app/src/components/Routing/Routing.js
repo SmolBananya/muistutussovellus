@@ -42,7 +42,7 @@ const Routing = (props) => (
             ></Route>
 
             <PrivateRoute user={props.user} path='/companytaskcontrol'>
-                <CompanyTaskControl />
+                <CompanyTaskControl user={props.user} />
             </PrivateRoute>
 
             <Route path='/login' render={() => <Login user={props.user} setUser={props.setUser} />}></Route>

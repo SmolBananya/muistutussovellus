@@ -2,7 +2,7 @@ import React from 'react';
 import Lottie from 'lottie-react-web';
 import styled from 'styled-components';
 
-import animation from '../../../Animations/data.json';
+import animation from '../../../Animations/juoksu.json';
 import animation2 from '../../../Animations/1.json';
 import trophy from '../../../Animations/trophy.json';
 
@@ -17,15 +17,16 @@ const Leaderboard = styled.div`
 `;
 
 const Game = (props) => {
-    const teksti = 'testi';
-    animation.layers[0].t.d.k[0].s.t = teksti;
-    console.log(animation.layers[0].t.d.k[0].s.t);
+    // const teksti = 'testi';
+    //animation.layers[0].t.d.k[0].s.t = teksti;
+    //console.log(animation.layers[0].t.d.k[0].s.t);
 
     return (
         <>
+            {/*
             <Leaderboard />
             <div onClick={() => (props.btn ? props.setBtn(false) : props.setBtn(true))}>
-                <Lottie
+              <Lottie
                     style={{
                         width: '100px',
                         height: '100px',
@@ -37,6 +38,7 @@ const Game = (props) => {
                         animationData: trophy,
                     }}
                 />
+
             </div>
 
             <div onClick={() => props.btn && props.setBtn(false)}>
@@ -60,7 +62,8 @@ const Game = (props) => {
                     }}
                 />
             </div>
-            <div onClick={() => (props.btn ? props.setBtn(false) : props.setBtn(true))}>
+            */}
+            <div>
                 <Lottie
                     style={{ height: window.innerHeight }}
                     options={{

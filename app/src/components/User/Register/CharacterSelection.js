@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
-import animation from '../../../Animations/data.json';
+import animation from '../../../Animations/juoksu.json';
 import Main from '../../Shared/Main';
 import Button from '../../Shared/Button';
 import API from '../../../Actions/API';
@@ -29,21 +29,25 @@ const UserRegisterChar = (props) => {
     return (
         <>
             <Main container direction='column' justify='space-between' alignItems='center'>
+                <Grid container direction='row' justify='center' alignItems='center'></Grid>
                 <Grid container direction='row' justify='center' alignItems='center'>
-                    <Grid item xs={2}>
+                    <Grid item xs={2} style={{ textAlign: 'left' }}>
                         <ArrowLeft />
                     </Grid>
-                    <Grid item xs={8}>
-                        <Lottie
+                    <Grid item xs={8} style={{ overflow: 'hidden' }}>
+                        <div
                             style={{
-                                width: '90%',
+                                width: '100%',
                             }}
-                            options={{
-                                animationData: animation,
-                            }}
-                        />
+                        >
+                            <Lottie
+                                options={{
+                                    animationData: animation,
+                                }}
+                            />
+                        </div>
                     </Grid>
-                    <Grid item xs={2}>
+                    <Grid item xs={2} style={{ textAlign: 'right' }}>
                         <ArrowRight />
                     </Grid>
                 </Grid>

@@ -11,6 +11,13 @@ const userregister = (data) => {
 const gettasks = async (data) => {
     return await axios.post(`${url}api/gettasks`, data);
 };
+const addtask = async (data, JWTtoken) => {
+    return await axios.post(`${url}api/addtask`, data, {
+        headers: {
+            Authorization: JWTtoken,
+        },
+    });
+};
 
 const login = (data) => {
     return axios.post(`${url}api/login`, data);
@@ -27,5 +34,6 @@ export default {
     companyregister: companyregister,
     userregister: userregister,
     gettasks: gettasks,
+    addtask: addtask,
     login: login,
 };
