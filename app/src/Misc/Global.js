@@ -21,5 +21,7 @@ body {
   input[type=number] {
     -moz-appearance: textfield;
   }
-
+#root {
+  position: absolute;
+}
 `;

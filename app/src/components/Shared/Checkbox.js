@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
+import Checkboxi from '@material-ui/core/Checkbox';
 
-const Cb = styled(Checkbox)`
+const Cb = styled(Checkboxi)`
     &&& {
         color: ${(props) => props.theme.colors.main};
         &:checked {
@@ -13,6 +13,6 @@ const Cb = styled(Checkbox)`
 `;
 const Cblabel = styled(FormControlLabel)``;
 
-const Checkboxi = () => <Cb />;
+const Checkbox = (props) => <Cb checked={props.checked} onChange={props.onChange} />;
 
-export default Checkboxi;
+export default Checkbox;

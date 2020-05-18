@@ -133,20 +133,44 @@ app.post('/api/gettasks', async function (req, res) {
     await sql.close(config);
 });
 
-app.get('/api/testi', async function (req, res) {
-    const token = req.get('authorization');
-    const tokencheck = JSON.stringify(jwt.verify(token, process.env.SECRET));
-    console.log('testi ', tokencheck);
-    if (!tokencheck) {
-        res.json({ error: 'väärä token' });
+app.post('/api/addtask', async function (req, res) {
+    if (!req.get('authorization')) {
+        res.status(200).json({ error: 'Virheellinen token' });
     } else {
-        const con = await sql.connect(config);
-        const request = new sql.Request(con);
-        const result0 = await request.query(`SELECT * FROM Käyttäjät`);
-        if (result0.rowsAffected >= 1) {
-            res.json(result0);
-        } else {
+        const token = req.get('authorization');
+        const tokencheck = JSON.stringify(jwt.verify(token, process.env.SECRET));
+        console.log('token: ', tokencheck);
+        if (!tokencheck) {
             res.json({ error: 'väärä token' });
+        } else {
+            console.log(req.body);
+            try {
+                const con = await sql.connect(config);
+                const request = new sql.Request(con);
+                request.input('name', sql.NVarChar, req.body.name);
+                request.input('points', sql.Int, req.body.points);
+                request.input('target', sql.Int, req.body.target);
+                request.input('date', sql.Date, req.body.date);
+                request.input('forced', sql.Bit, req.body.forced);
+                const result = await request.query(
+                    `INSERT INTO Tehtävät (nimi, pistemäärä, tavoitemäärä, päivämäärä, pakollinen) OUTPUT inserted.tehtävä_id VALUES (@name, @points, @target, @date, @forced)`,
+                );
+                console.log(result);
+                result.rowsAffected >= 1 &&
+                    res.status(200).json({
+                        tehtävä_id: result.recordset[0].tehtävä_id,
+                        nimi: req.body.name,
+                        pistemäärä: req.body.points,
+                        tavoitemäärä: req.body.target,
+                        päivämäärä: req.body.date,
+                        pakollinen: req.body.forced,
+                    });
+            } catch (error) {
+                console.log(error);
+                res.status(200).json({ error: error });
+            } finally {
+                await sql.close(config);
+            }
         }
     }
 });

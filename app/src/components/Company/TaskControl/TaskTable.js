@@ -16,9 +16,6 @@ import Text from '../../Shared/Text';
 import Button from '../../Shared/Button';
 
 import moment from 'moment';
-moment().format();
-moment.locale('fi');
-const now = moment(new Date()).format('DD.MM.YYYY').toString();
 
 const ArrowLeft = styled(ArrowBackIcon)`
     && {
@@ -58,20 +55,15 @@ const TD = styled(TableCell)`
     }
 `;
 
-const CompanyTaskTable = (props) => {
-    let date = moment(new Date());
-    const [currentDate, setCurrentDate] = useState(date);
-    const [days, setDays] = useState(1);
-    const [tasks, setTasks] = useState([]);
+const CompanyTaskTable = ({ tasks, setTasks, days, setDays, currentDate, setCurrentDate }) => {
     const [loading, setLoading] = useState(false);
     const [errorText, setErrorText] = useState('');
 
-    const gettasks = async () => {
+    const gettasks = async (val) => {
+        val === 1 ? setDays(days + 1) : setDays(days - 1);
         setErrorText('');
         setLoading(true);
-        let pvm = moment(new Date()).add(days, 'days');
-        pvm = pvm.format('YYYY-MM-DD').toString();
-        const res = await API.gettasks({ pvm: pvm });
+        const res = await API.gettasks({ pvm: currentDate.format('YYYY-MM-DD').toString() });
 
         if (res.status === 200) {
             if (!res.data.error) {
@@ -87,9 +79,10 @@ const CompanyTaskTable = (props) => {
         }
     };
     useEffect(() => {
-        setCurrentDate(moment(date).add(days, 'days'));
-        gettasks();
-    }, [days]);
+        //setCurrentDate(moment(new Date()).add(days, 'days'));
+        console.log('days ', days);
+        // gettasks();
+    }, []);
 
     return (
         <>
@@ -99,7 +92,7 @@ const CompanyTaskTable = (props) => {
                 <>
                     <Grid container direction='row' justify='center' alignItems='center' spacing={1}>
                         <Grid item xs={2} style={{ textAlign: 'center' }}>
-                            <ArrowLeft onClick={() => !loading && setDays(days - 1)} />
+                            <ArrowLeft onClick={() => gettasks(0)} />
                         </Grid>
                         <Grid item xs='auto'>
                             <Text align='center' size={16} weight={500} maincolor>
@@ -108,7 +101,7 @@ const CompanyTaskTable = (props) => {
                         </Grid>
 
                         <Grid item xs={2} style={{ textAlign: 'center' }}>
-                            <ArrowRight onClick={() => !loading && setDays(days + 1)} />
+                            <ArrowRight onClick={() => gettasks(1)} />
                         </Grid>
                     </Grid>
                     {errorText ? (
