@@ -55,15 +55,34 @@ const TD = styled(TableCell)`
     }
 `;
 
+<<<<<<< HEAD
+const CompanyTaskTable = ({ tasks, setTasks, currentDate, setCurrentDate }) => {
+=======
 const CompanyTaskTable = ({ tasks, setTasks, days, setDays, currentDate, setCurrentDate }) => {
+>>>>>>> master
     const [loading, setLoading] = useState(false);
     const [errorText, setErrorText] = useState('');
 
     const gettasks = async (val) => {
+<<<<<<< HEAD
+        val === 1
+            ? setCurrentDate(moment(currentDate).add(1, 'days'))
+            : setCurrentDate(moment(currentDate).subtract(1, 'days'));
+        setErrorText('');
+        setLoading(true);
+
+        let res;
+        val === 1
+            ? (res = await API.gettasks({ pvm: moment(currentDate).add(1, 'days').format('YYYY-MM-DD').toString() }))
+            : (res = await API.gettasks({
+                  pvm: moment(currentDate).subtract(1, 'days').format('YYYY-MM-DD').toString(),
+              }));
+=======
         val === 1 ? setDays(days + 1) : setDays(days - 1);
         setErrorText('');
         setLoading(true);
         const res = await API.gettasks({ pvm: currentDate.format('YYYY-MM-DD').toString() });
+>>>>>>> master
 
         if (res.status === 200) {
             if (!res.data.error) {
@@ -79,9 +98,13 @@ const CompanyTaskTable = ({ tasks, setTasks, days, setDays, currentDate, setCurr
         }
     };
     useEffect(() => {
+<<<<<<< HEAD
+        gettasks();
+=======
         //setCurrentDate(moment(new Date()).add(days, 'days'));
         console.log('days ', days);
         // gettasks();
+>>>>>>> master
     }, []);
 
     return (
@@ -123,24 +146,23 @@ const CompanyTaskTable = ({ tasks, setTasks, days, setDays, currentDate, setCurr
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
-                                        {tasks &&
-                                            tasks.map((t) => (
-                                                <TableRow>
-                                                    <TD align='left'>
-                                                        {t.pakollinen && (
-                                                            <img
-                                                                style={{ width: '1em', verticalAlign: 'text-bottom' }}
-                                                                src={require('../../../Images/SVG/P_icon.svg')}
-                                                            />
-                                                        )}
-                                                    </TD>
-                                                    <TD colSpan='100%' align='left'>
-                                                        {t.nimi}
-                                                    </TD>
-                                                    <TD align='center'>{t.pistemäärä}</TD>
-                                                    <TD align='center'>{t.tavoitemäärä}</TD>
-                                                </TableRow>
-                                            ))}
+                                        {tasks.map((t) => (
+                                            <TableRow>
+                                                <TD align='left'>
+                                                    {t.pakollinen && (
+                                                        <img
+                                                            style={{ width: '1em', verticalAlign: 'text-bottom' }}
+                                                            src={require('../../../Images/SVG/P_icon.svg')}
+                                                        />
+                                                    )}
+                                                </TD>
+                                                <TD colSpan='100%' align='left'>
+                                                    {t.nimi}
+                                                </TD>
+                                                <TD align='center'>{t.pistemäärä}</TD>
+                                                <TD align='center'>{t.tavoitemäärä}</TD>
+                                            </TableRow>
+                                        ))}
                                     </TableBody>
                                 </Table>
                             </Grid>
