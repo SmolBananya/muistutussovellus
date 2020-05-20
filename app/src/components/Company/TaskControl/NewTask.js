@@ -1,18 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { TaskControlContext } from '../../../Context/TaskControlContext';
 import Grid from '@material-ui/core/Grid';
 import API from '../../../Actions/API';
-
 import Textbox from '../../Shared/Textbox';
 import TextboxMini from '../../Shared/TextboxMini';
 import Text from '../../Shared/Text';
 import Button from '../../Shared/Button';
 import Checkbox from '../../Shared/Checkbox';
-
 import moment from 'moment';
-moment().format();
-moment.locale('fi');
+import { UserContext } from '../../../Context/UserContext';
 
-const CompanyNewTask = ({ tasks, setTasks, JWTtoken, currentDate, days }) => {
+const CompanyNewTask = () => {
+    const { TASKLIST, DATE } = useContext(TaskControlContext);
+    const [taskList, setTaskList] = TASKLIST;
+    const [date, setDate] = DATE;
+    const [user, setUser] = useContext(UserContext);
+
     const [task, setTask] = useState({
         name: '',
         points: '',
@@ -22,51 +25,21 @@ const CompanyNewTask = ({ tasks, setTasks, JWTtoken, currentDate, days }) => {
         copyDays: '',
         forced: false,
     });
+
     useEffect(() => {
-        setTask({ ...task, date: currentDate.format('YYYY-MM-DD').toString() });
-    }, [currentDate]);
+        setTask({ ...task, date: moment(date).format('YYYY-MM-DD').toString() });
+    }, [date]);
 
     const addnewtask = async () => {
-        // setLoading(true);
-        //let pvm = moment(new Date()).add(days, 'days');
-        //pvm = pvm.format('YYYY-MM-DD').toString();
-        const res = await API.addtask(task, JWTtoken);
+        const res = await API.addtask(task, user.JWTtoken);
 
         if (res.status === 200) {
             if (!res.data.error) {
-                //  setLoading(false);
-
-                setTasks([...tasks, res.data]);
-
-                console.log(tasks);
-
-                setTask({
-                    name: '',
-                    points: '',
-                    target: '',
-                    date: '',
-                    copystate: false,
-                    copyDays: '',
-                    forced: false,
-                });
-                setTasks([...tasks, res.data]);
-
-                setTask({
-                    name: '',
-                    points: '',
-                    target: '',
-                    date: '',
-                    copystate: false,
-                    copyDays: '',
-                    forced: false,
-                });
+                setTaskList([...taskList, res.data]);
+                setTask({ ...task, name: '', points: '', target: '', copystate: false, copyDays: '', forced: false });
             } else {
                 console.log(res.data.error);
-                //  setErrorText(res.data.error);
-                // setTasks([]);
-                //setLoading(false);
             }
-            // setLoading(false);
         }
     };
 
@@ -105,11 +78,12 @@ const CompanyNewTask = ({ tasks, setTasks, JWTtoken, currentDate, days }) => {
                         />
                     </Grid>
                     <Grid item xs='auto'>
-                        <Text size={10}>Kopio tehtävä seuraavalle </Text>
+                        <Text size={10}>Kopio myös seuraavalle </Text>
                     </Grid>
                     <Grid item xs={1} style={{ marginRight: '0.5em' }}>
                         <TextboxMini
                             type='text'
+                            value={task.copyDays}
                             placeholder=''
                             onChange={(e) => setTask({ ...task, copyDays: e.target.value })}
                         />

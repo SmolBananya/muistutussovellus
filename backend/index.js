@@ -6,6 +6,7 @@ const app = express();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 require('dotenv').config();
+const moment = require('moment');
 
 //components
 const admin = require('./admin');
@@ -22,7 +23,7 @@ const config = {
     database: process.env.database,
 };
 
-app.post('/api/companyregister', async function (req, res) {
+app.post('/api/c/companyregister', async function (req, res) {
     if (req.body.company && req.body.password && req.body.email) {
         const randomnumber = Math.floor(Math.random() * (99999 - 11111) + 11111);
         const con = await sql.connect(config);
@@ -43,7 +44,15 @@ app.post('/api/companyregister', async function (req, res) {
                     `SELECT käyttäjä_id, admin, yritys, rekisteröintikoodi FROM Käyttäjät WHERE rekisteröintikoodi = '${randomnumber}'`,
                 );
                 console.log(result3);
-                const token = jwt.sign({ id: result3.recordset[0].käyttäjä_id }, process.env.SECRET);
+                const token = jwt.sign(
+                    {
+                        id: result3.recordset[0].käyttäjä_id,
+                        admin: result3.recordset[0].admin,
+                        company: result3.recordset[0].yritys,
+                        registercode: result3.recordset[0].rekisteröintikoodi,
+                    },
+                    process.env.SECRET,
+                );
                 res.status(200).send({
                     id: result3.recordset[0].käyttäjä_id,
                     auth: true,
@@ -64,7 +73,7 @@ app.post('/api/companyregister', async function (req, res) {
     }
 });
 
-app.post('/api/userregister', async function (req, res) {
+app.post('/api/u/userregister', async function (req, res) {
     if (
         req.body.firstname &&
         req.body.lastname &&
@@ -91,10 +100,18 @@ app.post('/api/userregister', async function (req, res) {
 
                 if (result2.rowsAffected == 1) {
                     const result3 = await request.query(
-                        `SELECT käyttäjä_id, admin FROM Käyttäjät WHERE rekisteröintikoodi = @registercode AND sähkposti = @email `,
+                        `SELECT käyttäjä_id, admin, rekisteröintikoodi FROM Käyttäjät WHERE rekisteröintikoodi = @registercode AND sähkposti = @email `,
                     );
                     console.log(result3);
-                    const token = jwt.sign({ id: result3.recordset[0].käyttäjä_id }, process.env.SECRET);
+                    const token = jwt.sign(
+                        {
+                            id: result3.recordset[0].käyttäjä_id,
+                            admin: result3.recordset[0].admin,
+                            company: result3.recordset[0].yritys,
+                            registercode: result3.recordset[0].rekisteröintikoodi,
+                        },
+                        process.env.SECRET,
+                    );
                     res.status(200).send({
                         id: result3.recordset[0].käyttäjä_id,
                         auth: true,
@@ -116,35 +133,55 @@ app.post('/api/userregister', async function (req, res) {
     }
 });
 
-app.post('/api/gettasks', async function (req, res) {
-    const con = await sql.connect(config);
-    const request = new sql.Request(con);
-    console.log(req.body);
-    request.input('pvm', sql.Date, req.body.pvm);
-    const result = await request.query(`SELECT * FROM Tehtävät WHERE päivämäärä = @pvm`);
-    //console.log(result.recordset);
-    //res.status(200).send(result.recordset);
-    if (result.rowsAffected >= 1) {
-        res.status(200).json(result.recordset);
-        //console.log(result.recordset);
-    } else {
-        res.status(200).json({ error: `Valitulta päivältä ei löytynyt tehtäviä` });
-    }
-    await sql.close(config);
-});
-
-app.post('/api/addtask', async function (req, res) {
+app.post('/api/c/gettasks', async function (req, res) {
     if (!req.get('authorization')) {
         res.status(200).json({ error: 'Virheellinen token' });
     } else {
         const token = req.get('authorization');
-        const tokencheck = JSON.stringify(jwt.verify(token, process.env.SECRET));
+        const tokencheck = jwt.verify(token, process.env.SECRET);
+        console.log('token: ', tokencheck);
+        if (!tokencheck) {
+            res.json({ error: 'Virheellinen token' });
+        } else {
+            console.log(req.body);
+            try {
+                const con = await sql.connect(config);
+                const request = new sql.Request(con);
+                console.log(req.body);
+                request.input('pvm', sql.Date, req.body.pvm);
+                request.input('registercode', sql.Int, tokencheck.registercode);
+                const result = await request.query(
+                    `SELECT * FROM Tehtävät WHERE päivämäärä = @pvm AND yrityskoodi = @registercode`,
+                );
+                if (result.rowsAffected >= 1) {
+                    res.status(200).json(result.recordset);
+                } else {
+                    res.status(200).json({ error: `Valitulta päivältä ei löytynyt tehtäviä` });
+                }
+            } catch (error) {
+                console.log(error);
+                res.status(200).json({ error: error });
+            } finally {
+                await sql.close(config);
+            }
+        }
+    }
+});
+
+app.post('/api/c/addtask', async function (req, res) {
+    if (!req.get('authorization')) {
+        res.status(200).json({ error: 'Virheellinen token' });
+    } else {
+        const token = req.get('authorization');
+        const tokencheck = jwt.verify(token, process.env.SECRET);
         console.log('token: ', tokencheck);
         if (!tokencheck) {
             res.json({ error: 'väärä token' });
         } else {
-            console.log(req.body);
-            try {
+            if (req.body.name && req.body.points && req.body.target && req.body.date) {
+                console.log(req.body);
+                console.log('registercode: ', tokencheck.registercode);
+
                 const con = await sql.connect(config);
                 const request = new sql.Request(con);
                 request.input('name', sql.NVarChar, req.body.name);
@@ -152,19 +189,84 @@ app.post('/api/addtask', async function (req, res) {
                 request.input('target', sql.Int, req.body.target);
                 request.input('date', sql.Date, req.body.date);
                 request.input('forced', sql.Bit, req.body.forced);
+                request.input('registercode', sql.Int, tokencheck.registercode);
+
+                if (req.body.copystate) {
+                    try {
+                        for (let i = 0; i < parseInt(req.body.copyDays) + 1; i++) {
+                            console.log(i);
+                            let date = moment(req.body.date).add(i, 'days').format('YYYY-MM-DD').toString();
+                            const result = await request.query(
+                                `INSERT INTO Tehtävät (nimi, pistemäärä, tavoitemäärä, päivämäärä, pakollinen, yrityskoodi) OUTPUT inserted.tehtävä_id VALUES (@name, @points, @target, '${date}', @forced, @registercode)`,
+                            );
+
+                            result.rowsAffected >= 1 &&
+                                req.body.date === date &&
+                                res.status(200).json({
+                                    tehtävä_id: result.recordset[0].tehtävä_id,
+                                    nimi: req.body.name,
+                                    pistemäärä: req.body.points,
+                                    tavoitemäärä: req.body.target,
+                                    päivämäärä: req.body.date,
+                                    pakollinen: req.body.forced,
+                                });
+                        }
+                    } catch (error) {
+                        console.log(error);
+                        res.status(200).json({ error: error });
+                    } finally {
+                        await sql.close(config);
+                    }
+                } else {
+                    try {
+                        const result = await request.query(
+                            `INSERT INTO Tehtävät (nimi, pistemäärä, tavoitemäärä, päivämäärä, pakollinen, yrityskoodi) OUTPUT inserted.tehtävä_id VALUES (@name, @points, @target, @date, @forced, @registercode)`,
+                        );
+                        console.log(result);
+                        result.rowsAffected >= 1 &&
+                            res.status(200).json({
+                                tehtävä_id: result.recordset[0].tehtävä_id,
+                                nimi: req.body.name,
+                                pistemäärä: req.body.points,
+                                tavoitemäärä: req.body.target,
+                                päivämäärä: req.body.date,
+                                pakollinen: req.body.forced,
+                            });
+                    } catch (error) {
+                        console.log(error);
+                        res.status(200).json({ error: error });
+                    } finally {
+                        await sql.close(config);
+                    }
+                }
+            } else {
+                res.status(200).json({ error: 'Täytä kaikki kentät' });
+            }
+        }
+    }
+});
+
+app.delete('/api/c/deletetask/:id', async function (req, res) {
+    if (!req.get('authorization')) {
+        res.status(200).json({ error: 'Virheellinen token' });
+    } else {
+        const token = req.get('authorization');
+        const tokencheck = jwt.verify(token, process.env.SECRET);
+        console.log('token: ', tokencheck);
+        if (!tokencheck) {
+            res.json({ error: 'Virheellinen token' });
+        } else {
+            console.log(req.body);
+            try {
+                const con = await sql.connect(config);
+                const request = new sql.Request(con);
+                request.input('id', sql.Int, req.params.id);
+                request.input('registercode', sql.Int, tokencheck.registercode);
                 const result = await request.query(
-                    `INSERT INTO Tehtävät (nimi, pistemäärä, tavoitemäärä, päivämäärä, pakollinen) OUTPUT inserted.tehtävä_id VALUES (@name, @points, @target, @date, @forced)`,
+                    `DELETE FROM Tehtävät WHERE tehtävä_id = @id AND yrityskoodi = @registercode`,
                 );
                 console.log(result);
-                result.rowsAffected >= 1 &&
-                    res.status(200).json({
-                        tehtävä_id: result.recordset[0].tehtävä_id,
-                        nimi: req.body.name,
-                        pistemäärä: req.body.points,
-                        tavoitemäärä: req.body.target,
-                        päivämäärä: req.body.date,
-                        pakollinen: req.body.forced,
-                    });
+                result.rowsAffected >= 1 && res.status(200).json({ ok: 'tehtävä poistettu' });
             } catch (error) {
                 console.log(error);
                 res.status(200).json({ error: error });
@@ -183,7 +285,15 @@ app.post('/api/login', async function (req, res) {
         if (result.rowsAffected == 1) {
             const pwcheck = bcrypt.compareSync(req.body.password, result.recordset[0].salasana);
             if (pwcheck) {
-                const token = jwt.sign({ id: result.recordset[0].käyttäjä_id }, process.env.SECRET);
+                const token = jwt.sign(
+                    {
+                        id: result.recordset[0].käyttäjä_id,
+                        admin: result.recordset[0].admin,
+                        company: result.recordset[0].yritys,
+                        registercode: result.recordset[0].rekisteröintikoodi,
+                    },
+                    process.env.SECRET,
+                );
 
                 res.status(200).send({
                     id: result.recordset[0].käyttäjä_id,

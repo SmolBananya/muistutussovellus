@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Lottie from 'lottie-react-web';
 import styled from 'styled-components';
 import Grid from '@material-ui/core/Grid';
@@ -10,6 +10,7 @@ import Main from '../../Shared/Main';
 import Button from '../../Shared/Button';
 import API from '../../../Actions/API';
 import { useHistory } from 'react-router-dom';
+import { UserContext } from '../../../Context/UserContext';
 
 const ArrowLeft = styled(ArrowBackIcon)`
     && {
@@ -26,6 +27,7 @@ const ArrowRight = styled(ArrowForwardIcon)`
 
 const UserRegisterChar = (props) => {
     let history = useHistory();
+    const [user, setUser] = useContext(UserContext);
     return (
         <>
             <Main container direction='column' justify='space-between' alignItems='center'>
@@ -59,8 +61,8 @@ const UserRegisterChar = (props) => {
                                 const res = await API.userregister(props.data);
                                 //console.log(res);
                                 if (res.data.auth && res.data.token) {
-                                    props.setUser({
-                                        ...props.user,
+                                    setUser({
+                                        ...user,
                                         id: res.data.id,
                                         auth: res.data.auth,
                                         admin: res.data.admin,

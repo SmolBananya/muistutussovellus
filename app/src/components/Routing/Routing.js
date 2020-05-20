@@ -21,31 +21,25 @@ const Routing = (props) => (
         <Switch>
             {/* User */}
 
-            <PrivateRoute user={props.user} path='/game'>
+            <PrivateRoute path='/game'>
                 <UserGame />
             </PrivateRoute>
 
-            <Route
-                path='/userregister'
-                render={() => <UserRegister user={props.user} setUser={props.setUser} />}
-            ></Route>
+            <Route path='/userregister' render={() => <UserRegister />}></Route>
 
             {/* Company */}
 
-            <PrivateRoute user={props.user} path='/companymenu'>
-                <CompanyMenu user={props.user} setUser={props.setUser} />
+            <PrivateRoute path='/companymenu'>
+                <CompanyMenu />
             </PrivateRoute>
 
-            <Route
-                path='/companyregister'
-                render={() => <CompanyRegister user={props.user} setUser={props.setUser} />}
-            ></Route>
+            <Route path='/companyregister' render={() => <CompanyRegister />}></Route>
 
-            <PrivateRoute user={props.user} path='/companytaskcontrol'>
-                <CompanyTaskControl user={props.user} />
+            <PrivateRoute path='/companytaskcontrol'>
+                <CompanyTaskControl />
             </PrivateRoute>
 
-            <Route path='/login' render={() => <Login user={props.user} setUser={props.setUser} />}></Route>
+            <Route path='/login' render={() => <Login />}></Route>
         </Switch>
     </Router>
 );

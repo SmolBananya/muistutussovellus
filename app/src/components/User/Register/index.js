@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Grid from '@material-ui/core/Grid';
-import { Redirect } from 'react-router-dom';
 
 import Toolbar from '../../Toolbar';
 import Main from '../../Shared/Main';
@@ -25,17 +24,24 @@ const UserRegister = (props) => {
         registercode: '',
         character: '10',
     });
+
     return (
         <>
+            {window.innerHeight > 300 &&
+                (showCharacterSelection ? (
+                    <Toolbar setShowCharacterSelection={setShowCharacterSelection} value='Valitse pelihahmo' />
+                ) : (
+                    <Toolbar backarrowaction='login' value='Luo käyttäjätunnus' />
+                ))}
             {showCharacterSelection ? (
-                <Toolbar setShowCharacterSelection={setShowCharacterSelection} value='Valitse pelihahmo' />
+                <CharacterSelection data={data} setData={setData} />
             ) : (
-                <Toolbar backarrowaction='login' value='Luo käyttäjätunnus' />
-            )}
-            {showCharacterSelection ? (
-                <CharacterSelection data={data} setData={setData} user={props.user} setUser={props.setUser} />
-            ) : (
-                <Main container direction='column' justify='space-around' alignItems='center'>
+                <Main
+                    container
+                    direction='column'
+                    justify={window.innerHeight < 300 ? 'flex-start' : 'space-around'}
+                    alignItems='center'
+                >
                     <Grid container direction='row' justify='center' alignItems='center' spacing={1}>
                         <Grid item xs={12}>
                             <Textbox
