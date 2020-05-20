@@ -18,6 +18,8 @@ salasana nvarchar(30) NOT NULL,
 sähkposti nvarchar(50) NOT NULL,
 rekisteröintikoodi int NOT NULL,
 uusipäivä BIT,
+yritys nvarchar(100),
+admin BIT,
 PRIMARY KEY (käyttäjä_id),
 FOREIGN KEY (hahmo_id) REFERENCES Hahmot(hahmo_id)
 )
