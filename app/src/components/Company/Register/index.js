@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { Redirect, useHistory } from 'react-router-dom';
 
@@ -8,9 +8,11 @@ import Main from '../../Shared/Main';
 import Textbox from '../../Shared/Textbox';
 import Button from '../../Shared/Button';
 import Text from '../../Shared/Text';
+import { UserContext } from '../../../Context/UserContext';
 
 const CompanyRegister = (props) => {
     let history = useHistory();
+    const [user, setUser] = useContext(UserContext);
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState({
         company: '',
@@ -20,10 +22,14 @@ const CompanyRegister = (props) => {
     const [registerCompleted, setRegisterCompleted] = useState({});
     return (
         <>
-            {props.user.admin && props.user.auth && <Redirect to='/companymenu' />}
-
-            <Toolbar backarrowaction='login' value='Luo yritystunnus' />
-            <Main container direction='column' justify='center' alignItems='center'>
+            {user.admin && user.auth && <Redirect to='/companymenu' />}
+            {window.innerHeight > 300 && <Toolbar backarrowaction='login' value='Luo yritystunnus' />}
+            <Main
+                container
+                direction='column'
+                justify={window.innerHeight < 300 ? 'flex-start' : 'space-around'}
+                alignItems='center'
+            >
                 <Grid container direction='row' justify='center' alignItems='center' spacing={1}>
                     <Grid item xs={12}>
                         <Textbox
@@ -61,8 +67,8 @@ const CompanyRegister = (props) => {
                                     });
 
                                     //  setTimeout(() => {
-                                    props.setUser({
-                                        ...props.user,
+                                    setUser({
+                                        ...user,
                                         auth: true,
                                         admin: true,
                                         JWTtoken: res.data.token,

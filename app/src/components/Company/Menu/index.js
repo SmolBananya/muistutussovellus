@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 
 import Main from '../../Shared/Main';
 import Button from '../../Shared/Button';
 import Text from '../../Shared/Text';
+import { UserContext } from '../../../Context/UserContext';
 
 const CompanyMain = (props) => {
+    const [user, setUser] = useContext(UserContext);
     return (
         <>
             <Main container direction='column' justify='space-between' alignItems='center'>
@@ -16,7 +18,7 @@ const CompanyMain = (props) => {
                             Tervetuloa
                         </Text>
                         <Text align='center' size={20} weight={500} maincolor>
-                            {props.user.company}
+                            {user.company}
                         </Text>
                     </Grid>
                 </Grid>
@@ -43,7 +45,7 @@ const CompanyMain = (props) => {
                         <Button
                             color={1}
                             onClick={() => {
-                                props.setUser({ ...props.user, auth: false, admin: false, JWTtoken: '' });
+                                setUser({ ...user, auth: false, admin: false, JWTtoken: '' });
                             }}
                         >
                             Kirjaudu ulos

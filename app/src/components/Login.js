@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 
@@ -7,16 +7,24 @@ import Textbox from '../Components/Shared/Textbox';
 import Logo from '../Components/Shared/Logo';
 import Button from '../Components/Shared/Button';
 import Main from '../Components/Shared/Main';
+import { UserContext } from '../Context/UserContext';
 
 const Login = (props) => {
     let history = useHistory();
+    const [user, setUser] = useContext(UserContext);
     const [data, setData] = useState({
         email: '',
         password: '',
     });
     return (
         <>
-            <Main bgcolor='#000e52' container direction='column' justify='space-around' alignItems='center'>
+            <Main
+                bgcolor='#000e52'
+                container
+                direction='column'
+                justify={window.innerHeight < 300 ? 'flex-start' : 'space-around'}
+                alignItems='center'
+            >
                 <Grid container direction='row' justify='center' alignItems='center' spacing={1}>
                     <Grid item xs={10}>
                         <Logo src={require('../Images/PointFightLogo.png')} />
@@ -50,8 +58,8 @@ const Login = (props) => {
                                 console.log(res.data);
 
                                 if (res.data.auth && res.data.token) {
-                                    props.setUser({
-                                        ...props.user,
+                                    setUser({
+                                        ...user,
                                         auth: res.data.auth,
                                         JWTtoken: res.data.token,
                                         admin: res.data.admin,

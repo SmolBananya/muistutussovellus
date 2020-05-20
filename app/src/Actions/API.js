@@ -1,24 +1,38 @@
 import axios from 'axios';
 const url = `http://${window.location.hostname}:8080/`;
 
-const companyregister = (data) => {
-    return axios.post(`${url}api/companyregister`, data);
-};
+// User
 const userregister = (data) => {
-    return axios.post(`${url}api/userregister`, data);
+    return axios.post(`${url}api/u/userregister`, data);
 };
 
-const gettasks = async (data) => {
-    return await axios.post(`${url}api/gettasks`, data);
+// Company
+const companyregister = (data) => {
+    return axios.post(`${url}api/c/companyregister`, data);
+};
+const gettasks = async (data, JWTtoken) => {
+    return await axios.post(`${url}api/c/gettasks`, data, {
+        headers: {
+            Authorization: JWTtoken,
+        },
+    });
 };
 const addtask = async (data, JWTtoken) => {
-    return await axios.post(`${url}api/addtask`, data, {
+    return await axios.post(`${url}api/c/addtask`, data, {
+        headers: {
+            Authorization: JWTtoken,
+        },
+    });
+};
+const deletetask = async (id, JWTtoken) => {
+    return await axios.delete(`${url}api/c/deletetask/${id}`, {
         headers: {
             Authorization: JWTtoken,
         },
     });
 };
 
+// Shared
 const login = (data) => {
     return axios.post(`${url}api/login`, data);
 };
@@ -35,5 +49,6 @@ export default {
     userregister: userregister,
     gettasks: gettasks,
     addtask: addtask,
+    deletetask: deletetask,
     login: login,
 };

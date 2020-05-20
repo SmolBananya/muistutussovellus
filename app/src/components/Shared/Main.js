@@ -7,8 +7,6 @@ const Main = styled(Grid)`
     top: ${(props) => (props.long ? '60px' : '0px')};
     position: relative;
     background-color: ${(props) => props.theme.colors.bg};
-    background-repeat: no-repeat;
-    background-size: cover;
     padding: ${(props) => (props.long ? '0em 1em' : '1em')};
 `;
 
