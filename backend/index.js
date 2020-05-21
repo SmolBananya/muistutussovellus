@@ -134,38 +134,38 @@ app.post('/api/u/userregister', async function (req, res) {
 });
 
 app.post('/api/c/gettasks', async function (req, res) {
-    if (!req.get('authorization')) {
-        res.status(200).json({ error: 'Virheellinen token' });
-    } else {
-        const token = req.get('authorization');
-        const tokencheck = jwt.verify(token, process.env.SECRET);
-        console.log('token: ', tokencheck);
-        if (!tokencheck) {
-            res.json({ error: 'Virheellinen token' });
+    //  if (!req.get('authorization')) {
+    //    res.status(200).json({ error: 'Virheellinen token' });
+    //} else {
+    //const token = req.get('authorization');
+    //const tokencheck = jwt.verify(token, process.env.SECRET);
+    //console.log('token: ', tokencheck);
+    //if (!tokencheck) {
+    //  res.json({ error: 'Virheellinen token' });
+    //} else {
+    console.log(req.body);
+    try {
+        const con = await sql.connect(config);
+        const request = new sql.Request(con);
+        console.log(req.body);
+        request.input('pvm', sql.Date, req.body.pvm);
+        request.input('registercode', sql.Int, tokencheck.registercode);
+        const result = await request.query(
+            `SELECT * FROM Tehtävät WHERE päivämäärä = @pvm AND yrityskoodi = @registercode`,
+        );
+        if (result.rowsAffected >= 1) {
+            res.status(200).json(result.recordset);
         } else {
-            console.log(req.body);
-            try {
-                const con = await sql.connect(config);
-                const request = new sql.Request(con);
-                console.log(req.body);
-                request.input('pvm', sql.Date, req.body.pvm);
-                request.input('registercode', sql.Int, tokencheck.registercode);
-                const result = await request.query(
-                    `SELECT * FROM Tehtävät WHERE päivämäärä = @pvm AND yrityskoodi = @registercode`,
-                );
-                if (result.rowsAffected >= 1) {
-                    res.status(200).json(result.recordset);
-                } else {
-                    res.status(200).json({ error: `Valitulta päivältä ei löytynyt tehtäviä` });
-                }
-            } catch (error) {
-                console.log(error);
-                res.status(200).json({ error: error });
-            } finally {
-                await sql.close(config);
-            }
+            res.status(200).json({ error: `Valitulta päivältä ei löytynyt tehtäviä` });
         }
+    } catch (error) {
+        console.log(error);
+        res.status(200).json({ error: error });
+    } finally {
+        await sql.close(config);
     }
+    // }
+    //}
 });
 
 app.post('/api/c/addtask', async function (req, res) {

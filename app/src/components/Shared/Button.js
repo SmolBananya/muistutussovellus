@@ -4,6 +4,7 @@ const Button = styled.button`
     width: 100%;
     padding: 20px;
     border: 0;
+    border-radius: 3px;
     outline: 0;
     background-color: ${(props) => props.color === 1 && props.theme.colors.button1.color1};
     background-color: ${(props) => props.color === 2 && props.theme.colors.button2.color1};
@@ -15,7 +16,7 @@ const Button = styled.button`
     transition: background-color 0.2s linear;
 
     font-family: 'Roboto', Helvetica, Arial, sans-serif;
-    font-size: calc(12px + 1vmin);
+    font-size: calc(12px + 0.2vw);
     font-weight: 700;
     text-transform: uppercase;
 

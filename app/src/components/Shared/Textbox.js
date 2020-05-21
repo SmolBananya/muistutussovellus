@@ -12,7 +12,7 @@ const Textbox = styled.input`
     border-radius: 3px;
 
     font-family: 'Roboto', Helvetica, Arial, sans-serif;
-    font-size: calc(12px + 1vmin);
+    font-size: calc(12px + 0.2vw);
     font-weight: 400;
 
     color: #000000;

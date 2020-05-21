@@ -30,57 +30,59 @@ const CompanyRegister = (props) => {
                 justify={window.innerHeight < 300 ? 'flex-start' : 'space-around'}
                 alignItems='center'
             >
-                <Grid container direction='row' justify='center' alignItems='center' spacing={1}>
-                    <Grid item xs={12}>
-                        <Textbox
-                            type='text'
-                            placeholder='Yrityksen nimi'
-                            onChange={(e) => setData({ ...data, company: e.target.value })}
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Textbox
-                            type='text'
-                            placeholder='Sähköposti'
-                            onChange={(e) => setData({ ...data, email: e.target.value })}
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Textbox
-                            type='password'
-                            placeholder='Salasana'
-                            onChange={(e) => setData({ ...data, password: e.target.value })}
-                        />
-                    </Grid>
+                <Grid container direction='row' justify='center' alignItems='center'>
+                    <Grid container item xs={12} sm={6} md={4} lg={3} spacing={1}>
+                        <Grid item xs={12}>
+                            <Textbox
+                                type='text'
+                                placeholder='Yrityksen nimi'
+                                onChange={(e) => setData({ ...data, company: e.target.value })}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Textbox
+                                type='text'
+                                placeholder='Sähköposti'
+                                onChange={(e) => setData({ ...data, email: e.target.value })}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Textbox
+                                type='password'
+                                placeholder='Salasana'
+                                onChange={(e) => setData({ ...data, password: e.target.value })}
+                            />
+                        </Grid>
 
-                    <Grid item xs={12}>
-                        <Button
-                            color={1}
-                            onClick={async () => {
-                                const res = await API.companyregister(data);
+                        <Grid item xs={12}>
+                            <Button
+                                color={1}
+                                onClick={async () => {
+                                    const res = await API.companyregister(data);
 
-                                if (res.data.auth && res.data.token) {
-                                    setRegisterCompleted({
-                                        ...registerCompleted,
-                                        company: res.data.company,
-                                        code: res.data.code,
-                                    });
+                                    if (res.data.auth && res.data.token) {
+                                        setRegisterCompleted({
+                                            ...registerCompleted,
+                                            company: res.data.company,
+                                            code: res.data.code,
+                                        });
 
-                                    //  setTimeout(() => {
-                                    setUser({
-                                        ...user,
-                                        auth: true,
-                                        admin: true,
-                                        JWTtoken: res.data.token,
-                                        company: res.data.company,
-                                    });
-                                    history.push('/companymenu');
-                                    // }, 5000);
-                                }
-                            }}
-                        >
-                            Tallenna
-                        </Button>
+                                        //  setTimeout(() => {
+                                        setUser({
+                                            ...user,
+                                            auth: true,
+                                            admin: true,
+                                            JWTtoken: res.data.token,
+                                            company: res.data.company,
+                                        });
+                                        history.push('/companymenu');
+                                        // }, 5000);
+                                    }
+                                }}
+                            >
+                                Tallenna
+                            </Button>
+                        </Grid>
                     </Grid>
                     <Grid container direction='row' justify='center' alignItems='center'>
                         {registerCompleted.company && (

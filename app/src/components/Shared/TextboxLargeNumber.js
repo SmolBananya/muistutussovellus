@@ -10,9 +10,8 @@ const Textbox = styled.input`
     box-shadow: 0px 0px 1px 1px #ccc;
     transition: box-shadow 0.2s linear;
     border-radius: 3px;
-
     font-family: 'Roboto', Helvetica, Arial, sans-serif;
-    font-size: ${(props) => (props.size ? `calc(${props.size}px + 1vmin)` : 'calc(12px + 1vmin)')};
+    font-size: ${(props) => (props.size ? `calc(${props.size}px + 0.2vw)` : 'calc(12px + 0.2vw)')};
     font-weight: ${(props) => (props.weight ? props.weight : '400')};
     color: ${(props) => (props.maincolor ? props.theme.colors.main : props.theme.colors.text)};
     text-align: center;

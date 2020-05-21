@@ -78,7 +78,7 @@ const CompanyNewTask = () => {
                         />
                     </Grid>
                     <Grid item xs='auto'>
-                        <Text size={10}>Kopio myös seuraavalle </Text>
+                        <Text size={12}>Kopio myös seuraavalle </Text>
                     </Grid>
                     <Grid item xs={1} style={{ marginRight: '0.5em' }}>
                         <TextboxMini
@@ -89,7 +89,7 @@ const CompanyNewTask = () => {
                         />
                     </Grid>
                     <Grid item xs='auto'>
-                        <Text size={10}>päivälle </Text>
+                        <Text size={12}>päivälle </Text>
                     </Grid>
                 </Grid>
                 <Grid container direction='row' justify='flex-start' alignItems='center' spacing={1}>
@@ -100,7 +100,7 @@ const CompanyNewTask = () => {
                         />
                     </Grid>
                     <Grid item xs='auto'>
-                        <Text size={10}>Määrittele tehtävä pakolliseksi </Text>
+                        <Text size={12}>Määrittele tehtävä pakolliseksi </Text>
                     </Grid>
                     <Grid item xs={1}>
                         <img src={require('../../../Images/SVG/P_icon.svg')} />

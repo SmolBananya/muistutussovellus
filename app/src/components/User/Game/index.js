@@ -1,6 +1,8 @@
 import React from 'react';
 import Lottie from 'lottie-react-web';
 import styled from 'styled-components';
+import Grid from '@material-ui/core/Grid';
+import Main from '../../Shared/Main';
 
 import animation from '../../../Animations/juoksu.json';
 import animation2 from '../../../Animations/1.json';
@@ -63,14 +65,36 @@ const Game = (props) => {
                 />
             </div>
             */}
-            <div>
-                <Lottie
-                    style={{ height: window.innerHeight }}
-                    options={{
-                        animationData: animation,
-                    }}
-                />
-            </div>
+            <Main
+                bgcolor='#000e52'
+                container
+                direction='column'
+                justify={window.innerHeight < 300 ? 'flex-start' : 'space-around'}
+                alignItems='center'
+            >
+                <Grid
+                    container
+                    direction='row'
+                    justify='center'
+                    alignItems='center'
+                    xs={12}
+                    sm={10}
+                    md={8}
+                    lg={6}
+                    xl={4}
+                >
+                    <Grid item xs={12}>
+                        <div>
+                            <Lottie
+                                style={{ height: window.innerHeight }}
+                                options={{
+                                    animationData: animation,
+                                }}
+                            />
+                        </div>
+                    </Grid>
+                </Grid>
+            </Main>
         </>
     );
 };
