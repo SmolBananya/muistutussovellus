@@ -10,7 +10,7 @@ const UserDailyTaskItem = (props) => {
                 <Checkbox checked='' onChange='{}' />
             </Grid>
             <Grid item xs='auto'>
-                <Text size={12}>Olen tänään soittanut 5 kertaa </Text>
+                <Text size={12}>{props.data.nimi}</Text>
             </Grid>
         </Grid>
     );

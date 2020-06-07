@@ -76,6 +76,7 @@ const UserRegisterChar = (props) => {
                                             auth: res.data.auth,
                                             admin: res.data.admin,
                                             JWTtoken: res.data.token,
+                                            registercode: res.data.registercode,
                                         });
                                         history.push('/game');
                                     }

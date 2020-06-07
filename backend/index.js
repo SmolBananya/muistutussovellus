@@ -118,6 +118,7 @@ app.post('/api/u/userregister', async function (req, res) {
                         auth: true,
                         admin: result3.recordset[0].admin,
                         token: token,
+                        registercode: result3.recordset[0].rekisteröintikoodi,
                     });
                 } else {
                     res.json('Rekisteröinti epäonnistui!');
