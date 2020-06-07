@@ -10,6 +10,7 @@ const moment = require('moment');
 
 //components
 const admin = require('./admin');
+require('./websocket');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -312,52 +313,6 @@ app.post('/api/login', async function (req, res) {
     }
 });
 
-app.post('/register', async function (req, res) {
-    // if (req.body.email && req.body.password) {
-    const user = {
-        email: 'teppo.testaaja@testi.fi', //req.body.email,
-        password: bcrypt.hashSync('testi', 10),
-    };
-    console.log(user.password.length);
-    const con = await sql.connect(config);
-    const request = new sql.Request(con);
-    const result = await request.query(
-        `INSERT INTO Käyttäjät (hahmo_id, etunimi, sukunimi, salasana, sähkposti, rekisteröintikoodi) VALUES (10, 'teppo', 'testaaja', '${
-            user.password
-        }', '${user.email}', ${Math.floor(Math.random() * 10)}`,
-    );
-    const result2 = await request.query(`SELECT * FROM Käyttäjät WHERE yritys = "testi"`);
-    console.log(result2);
-    res.json(result);
-    await sql.close(config);
-});
-
 app.get('/', async function (req, res) {
-    const con = await sql.connect(config);
-    const results = await con.request().query('select * from Tehtävät');
-    res.json(results);
-});
-
-app.post('/login2', function (request, response) {
-    var username = request.body.username;
-    var password = request.body.password;
-    if (username && password) {
-        connection.query('SELECT * FROM accounts WHERE username = ? AND password = ?', [username, password], function (
-            error,
-            results,
-            fields,
-        ) {
-            if (results.length > 0) {
-                request.session.loggedin = true;
-                request.session.username = username;
-                response.redirect('/home');
-            } else {
-                response.send('Incorrect Username and/or Password!');
-            }
-            response.end();
-        });
-    } else {
-        response.send('Please enter Username and Password!');
-        response.end();
-    }
+    res.json("There's nothing to see :(");
 });

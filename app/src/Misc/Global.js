@@ -2,8 +2,9 @@ import { createGlobalStyle } from 'styled-components';
 
 export const Global = createGlobalStyle`
 html{
-  font-size:100%;
-
+  font-family: 'Roboto', Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
 }
 body {
     margin: 0;

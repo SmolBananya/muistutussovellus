@@ -1,0 +1,16 @@
+component: website                 # (required) name of the component. In that case, it's website.
+name: pointfight          # (required) name of your website component instance.
+# org: serverlessinc               # (optional) serverless dashboard org. default is the first org you created during signup.
+# app: my-app                      # (optional) serverless dashboard app. default is the same as the name property.
+stage: dev                         # (optional) serverless dashboard stage. default is dev.
+
+inputs:
+  src:
+    src: ./src                     # (optional) path to the source folder. default is a hello world html file.
+    hook: npm run build            # the hook you want to run
+    dist: ./build                   # the output dist folder
+# domain: serverless.com           # (optional) domain name. this could also be a subdomain.
+  region: eu-west-1              # (optional) aws region to deploy to. default is us-east-1.
+# bucketName: sls-testi-24052020            # (optional) aws bucket name. default is an auto generated name.
+# indexDocument: ./index.html      # (optional) index document for your website. default is index.html.
+# errorDocument: index.html        # (optional) error document for your website. default is index.html.
