@@ -61,7 +61,7 @@ const Game = (props) => {
 
     return (
         <>
-            {showPopup && <POPUPUserCongratulation />}
+            {/*showPopup && <POPUPUserCongratulation />}
             <POPUPselectuserdailytasks />
             {/*
             <Leaderboard />
