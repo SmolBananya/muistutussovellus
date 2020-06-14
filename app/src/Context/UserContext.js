@@ -4,10 +4,11 @@ export const UserContext = createContext();
 
 export const UserProvider = (props) => {
     const [user, setUser] = useState({
-        auth: true,
-        admin: true,
-        company: '1',
-        JWTtoken: '1',
+        auth: false,
+        admin: false,
+        company: '',
+        JWTtoken: '',
+        registercode: '',
     });
 
     return <UserContext.Provider value={[user, setUser]}>{props.children}</UserContext.Provider>;

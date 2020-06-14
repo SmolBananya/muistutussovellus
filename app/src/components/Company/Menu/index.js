@@ -6,9 +6,11 @@ import Main from '../../Shared/Main';
 import Button from '../../Shared/Button';
 import Text from '../../Shared/Text';
 import { UserContext } from '../../../Context/UserContext';
+import { useCookies } from 'react-cookie';
 
 const CompanyMain = (props) => {
     const [user, setUser] = useContext(UserContext);
+    const [cookies, setCookie, removeCookie] = useCookies(['token']);
     return (
         <>
             <Main container direction='column' justify='space-between' alignItems='center'>
@@ -51,6 +53,7 @@ const CompanyMain = (props) => {
                             <Button
                                 color={1}
                                 onClick={() => {
+                                    removeCookie('token');
                                     setUser({ ...user, auth: false, admin: false, JWTtoken: '' });
                                 }}
                             >

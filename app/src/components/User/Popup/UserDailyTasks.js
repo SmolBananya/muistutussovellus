@@ -21,7 +21,7 @@ const TaskWindow = styled(Grid)`
     padding: 20px;
 `;
 
-const UserDailyTasks = () => {
+const UserDailyTasks = (props) => {
     return (
         <DarkBG container direction='column' justify='center' alignItems='center'>
             <Grid container direction='row' justify='center' alignItems='center'>
@@ -31,14 +31,10 @@ const UserDailyTasks = () => {
                             Valitse päivän tehtävät
                         </Text>
                     </Grid>
-                    <UserDailyTaskItem />
-                    <UserDailyTaskItem />
-                    <UserDailyTaskItem />
-                    <UserDailyTaskItem />
-                    <UserDailyTaskItem />
-                    <UserDailyTaskItem />
-                    <UserDailyTaskItem />
-                    <UserDailyTaskItem />
+                    {props.tasklistitems.recordset.map((item) => (
+                        <UserDailyTaskItem data={item} />
+                    ))}
+
                     <Grid item xs={12}>
                         <Button color={1}>Tallenna</Button>
                     </Grid>

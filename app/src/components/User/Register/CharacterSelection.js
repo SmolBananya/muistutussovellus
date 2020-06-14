@@ -11,6 +11,7 @@ import Button from '../../Shared/Button';
 import API from '../../../Actions/API';
 import { useHistory } from 'react-router-dom';
 import { UserContext } from '../../../Context/UserContext';
+import { useCookies } from 'react-cookie';
 
 const ArrowLeft = styled(ArrowBackIcon)`
     && {
@@ -27,6 +28,7 @@ const ArrowRight = styled(ArrowForwardIcon)`
 
 const UserRegisterChar = (props) => {
     let history = useHistory();
+    const [cookies, setCookie] = useCookies(['token']);
     const [user, setUser] = useContext(UserContext);
     return (
         <>
@@ -76,7 +78,9 @@ const UserRegisterChar = (props) => {
                                             auth: res.data.auth,
                                             admin: res.data.admin,
                                             JWTtoken: res.data.token,
+                                            registercode: res.data.registercode,
                                         });
+                                        setCookie('token', res.data.token, { path: '/' });
                                         history.push('/game');
                                     }
                                 }}
