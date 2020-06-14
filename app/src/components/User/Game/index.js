@@ -11,7 +11,7 @@ import { UserContext } from '../../../Context/UserContext';
 
 import io from 'socket.io-client';
 
-const socket = io('http://192.168.31.20:3000');
+const socket = io('http://192.168.31.20:3002');
 
 const Leaderboard = styled.div`
     background: url(${require('../../../Images/SVG/leaderboard.svg')});
@@ -23,15 +23,15 @@ const Leaderboard = styled.div`
     z-index: 2;
 `;
 const GameAnimation = styled.div`
-    width: 100%;
+    width: 245%;
     height: 100%;
     position: absolute;
     bottom: 0;
-    left: 0;
+    left: -60%;
     z-index: 1;
 `;
 const PlayerAnimation = styled.div`
-    width: 40%;
+    width: 70%;
     height: 100%;
     position: absolute;
     bottom: 0;
@@ -51,7 +51,8 @@ const Task = styled.div`
 `;
 const Gamew = styled.div`
     width: 100%;
-    height: 100%;
+    min-height: 100%;
+    min-height: -webkit-fill-available;
     position: absolute;
     top: 0;
     left: 0;
@@ -139,7 +140,7 @@ const Game = (props) => {
             <Gamew>
                 <GameAnimation>
                     <Lottie
-                        style={{ height: window.innerHeight, marginTop: '140px' }}
+                        style={{ height: window.innerHeight, width: '116%' }}
                         options={{
                             animationData: bganimation,
                         }}
@@ -150,7 +151,7 @@ const Game = (props) => {
                 </GameAnimation>
                 <PlayerAnimation>
                     <Lottie
-                        style={{ height: window.innerHeight, marginTop: '190px', marginLeft: '50%' }}
+                        style={{ height: window.innerHeight, marginTop: '20vh', marginLeft: '10vw' }}
                         options={{
                             animationData: animation,
                         }}

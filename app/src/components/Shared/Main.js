@@ -3,7 +3,8 @@ import Grid from '@material-ui/core/Grid';
 
 const Main = styled(Grid)`
     width: 100%;
-    height: ${(props) => (props.long ? `calc(${window.innerHeight}px + 60px)` : `${window.innerHeight}px`)};
+    min-height: 100%;
+    min-height: -webkit-fill-available;
     top: ${(props) => (props.long ? '60px' : '0px')};
     position: relative;
     background-color: ${(props) => props.theme.colors.bg};

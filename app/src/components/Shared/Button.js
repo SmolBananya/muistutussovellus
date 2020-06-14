@@ -14,7 +14,7 @@ const Button = styled.button`
     color: #ffffff;
     color: ${(props) => props.color === 4 && props.theme.colors.button4.color2};
     transition: background-color 0.2s linear;
-
+    cursor: pointer;
     font-family: 'Roboto', Helvetica, Arial, sans-serif;
     font-size: calc(12px + 0.2vw);
     font-weight: 700;
@@ -25,7 +25,7 @@ const Button = styled.button`
         background-color: ${(props) => props.color === 2 && props.theme.colors.button2.color2};
         background-color: ${(props) => props.color === 3 && props.theme.colors.button3.color2};
         background-color: ${(props) => props.color === 4 && props.theme.colors.button4.color2};
-        cursor: pointer;
+        color: ${(props) => props.color === 4 && props.theme.colors.button4.color1};
     }
 `;
 

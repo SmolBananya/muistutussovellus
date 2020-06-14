@@ -32,4 +32,4 @@ io.on('connection', (client) => {
         // io.sockets.in(data.registercode).emit('message', `sait viestin huoneesta ${data.registercode}`);
     });
 });
-io.listen(3000);
+io.listen(3002);
