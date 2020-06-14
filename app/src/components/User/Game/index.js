@@ -8,6 +8,7 @@ import bganimation from '../../../Animations/bganimation.json';
 import POPUPselectuserdailytasks from '../Popup/UserDailyTasks';
 import POPUPUserCongratulation from '../Popup/UserCongratulation';
 import { UserContext } from '../../../Context/UserContext';
+import { useCookies } from 'react-cookie';
 
 import io from 'socket.io-client';
 
@@ -60,6 +61,7 @@ const Gamew = styled.div`
 `;
 
 const Game = (props) => {
+    const [cookies, setCookie, removeCookie] = useCookies(['token']);
     const [user, setUser] = useContext(UserContext);
     const [tasklistitems, setTasklistitems] = useState([]);
     const [showPopup, setShowPopup] = useState({
@@ -183,6 +185,7 @@ const Game = (props) => {
                                 xs='auto'
                                 onClick={() => {
                                     setUser({ ...user, auth: false, admin: false, JWTtoken: '' });
+                                    removeCookie('token');
                                 }}
                             >
                                 <img style={{ width: '40px' }} src={require('../../../Images/exit.png')} />
