@@ -6,17 +6,17 @@ import Routing from './Components/Routing/Routing';
 import { CookiesProvider } from 'react-cookie';
 
 const App = () => {
-    return (
-        <>
-            <UserProvider>
-                <ThemeProvider theme={theme}>
-                    <CookiesProvider>
-                        <Routing />
-                    </CookiesProvider>
-                </ThemeProvider>
-            </UserProvider>
-        </>
-    );
+  return (
+    <>
+      <UserProvider>
+        <ThemeProvider theme={theme}>
+          <CookiesProvider>
+            <Routing />
+          </CookiesProvider>
+        </ThemeProvider>
+      </UserProvider>
+    </>
+  );
 };
 
 export default App;
